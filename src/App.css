@@ -1,7 +1,8 @@
 .appWrapper {
     display: grid;
     height: 100vh;
-    max-width: 1300px;
+    width: 1440px;
+    margin: 0 auto;
     grid-template-columns: 2fr 10fr;
     grid-template-rows: 60px 1fr;
     grid-gap: 10px;
@@ -28,5 +29,20 @@
 .content {
     grid-area: c;
     background-color: lightblue;
+
 }
 
+.content .img-box {
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
