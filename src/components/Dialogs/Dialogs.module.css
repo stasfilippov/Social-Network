@@ -1,0 +1,19 @@
+.dialogs_content {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogs {
+    border-right: 1px solid black;
+}
+
+.dialog_item {
+    margin-bottom: 20px;
+}
+
+.messages {
+    padding: 20px;
+}

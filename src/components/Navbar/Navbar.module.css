@@ -6,3 +6,13 @@
 .item {
     color: white;
 }
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: #1640f8;
+    font-weight: bold;
+}
