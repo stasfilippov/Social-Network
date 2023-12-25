@@ -8,17 +8,17 @@ import Profile from './components/Profile/Profile';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {DataType} from './index';
+import {DataType} from './redux/state';
 
 type AppPropsType = {
-	data: DataType
+	state: DataType
 }
 
 const App:React.FC<AppPropsType> = (props) => {
 
-	const {postsData} = props.data
-	const {dialogsData} = props.data
-	const {messagesData} = props.data
+	const {postsData} = props.state
+	const {dialogsData} = props.state
+	const {messagesData} = props.state
 
 	return (
 		<BrowserRouter>
