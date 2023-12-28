@@ -1,5 +1,5 @@
 import React from 'react';
-import './Profile.module.css'
+import st from './Profile.module.css'
 import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import { ProfilePageType,} from '../../redux/state';
@@ -10,7 +10,7 @@ type ProfileType = {
 
 const Profile = (props: ProfileType) => {
 	return (
-		<div>
+		<div className={st.profilePageWrapper}>
 			<ProfileInfo/>
 			<Posts data={props.state.postsData}/>
 		</div>

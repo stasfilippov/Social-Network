@@ -1,12 +1,15 @@
-import React from 'react';
+import logo from '../../images/logo.png'
 import st from './Header.module.css'
 
 const Header = () => {
 	return (
 		<header className={st.header}>
-			<img className={st.logo}
-			     src={'https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg'}
-			     alt="#"/>
+			<div className={st.accountDropdown}>Stas Filippov</div>
+			<img className={st.logo} src={logo} alt='#' />
+			<form action='' className={st.searchForm}>
+				<input type='text' className={st.searchInput} placeholder='Global search'/>
+				<button>+</button>
+			</form>
 		</header>
 	)
 }

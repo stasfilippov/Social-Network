@@ -6,10 +6,12 @@ import {DialogType} from '../../../redux/state';
 export const DialogItem:React.FC<DialogType> = ({name, id}) => {
 
 	let path = '/dialogs/' + id
+	let pathImg = 'ava' + id
 
 	return (
-		<div className={classes.dialog_item}>
+		<nav className={classes.dialog_item}>
+			{/* <img className={classes.dialog_item_img} src={require('../../../images' + pathImg + '.png')} alt="" /> */}
 			<NavLink to={path} >{name}</NavLink>
-		</div>
+		</nav>
 	)
 }
