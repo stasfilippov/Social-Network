@@ -12,11 +12,18 @@ export type PostType = {
 	likesCount: number
 	id: number
 }
-
-export type DataType = {
-	dialogsData: DialogType []
-	messagesData: MessageType []
+export type DialogsPageType = {
+	dialogsData: DialogType[]
+	messagesData: MessageType[]
+}
+export type ProfilePageType = {
 	postsData: PostType []
+}
+
+export type StateType = {
+	profilePage: ProfilePageType
+	dialogsPage: DialogsPageType
+
 }
 export let state = {
 	profilePage: {
@@ -27,7 +34,7 @@ export let state = {
 			{id: 4, postTitle: 'Yo i', likesCount: 10},
 		]
 	},
-	messagesPage: {
+	dialogsPage: {
 		dialogsData: [
 			{id: 1, name: 'Dimych'},
 			{id: 2, name: 'Igor'},
