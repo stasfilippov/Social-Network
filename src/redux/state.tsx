@@ -32,6 +32,7 @@ export type DialogsPageType = {
 }
 export type ProfilePageType = {
 	postsData: PostType[]
+	newPostText: string
 }
 
 export type StateType = {
@@ -40,6 +41,11 @@ export type StateType = {
 	navbarData: MenuType[]
 	friendsData: FriendType[]
 }
+
+let rerenderEntireTree = (state: StateType)=> {
+	console.log('state changed')
+}
+
 export let state = {
 	profilePage: {
 		postsData: [
@@ -48,6 +54,7 @@ export let state = {
 			{ id: 3, postTitle: 'Yo i am very happy', likesCount: 10 },
 			{ id: 4, postTitle: 'Yo i', likesCount: 10 },
 		],
+		newPostText: ''
 	},
 	dialogsPage: {
 		dialogsData: [
@@ -79,3 +86,23 @@ export let state = {
 		{ id: 5, nameFriend: 'Sveta', srcImg: 'ava5' },
 	],
 }
+
+export const subscribe = (observer: (state: StateType) => void) => {
+	rerenderEntireTree = observer
+}
+
+export const addPost = () => {
+	const newPost: PostType = {
+		id: 5,
+		postTitle: state.profilePage.newPostText,
+		likesCount: 0
+	}
+	state.profilePage.postsData.push(newPost)
+	state.profilePage.newPostText = ''
+	rerenderEntireTree(state)
+}
+export const changeNewPostText = (newText: string) => {
+	state.profilePage.newPostText = newText
+	rerenderEntireTree(state)
+}
+

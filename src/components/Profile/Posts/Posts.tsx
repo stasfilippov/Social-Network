@@ -1,25 +1,33 @@
-import React, {RefObject} from 'react';
+import React, {ChangeEvent, RefObject} from 'react';
 import {Post} from './Post/Post';
 import {PostType} from '../../../redux/state';
 
 type PostsType = {
 	data: PostType[]
+	addPost: () => void
+	changeNewPostText: (newText: string) => void
+	newPostText: string
 }
 
 export const Posts = (props: PostsType) => {
 
 	const mappingPosts = props.data.map(p => <Post key={p.id} id={p.id} postTitle={p.postTitle} likesCount={p.likesCount}/>)
 
-	const addPosts = () => {
-		let text = newPostElement.current?.value
-		alert(text)
-	}
 
 	let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
+	const addPosts = () => {
+		props.addPost()
+	}
+
+	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
+		props.changeNewPostText(event.currentTarget.value)
+	}
+
+
 	return (
 		<>
-			<textarea ref={newPostElement}></textarea>
+			<textarea value={props.newPostText} ref={newPostElement} onChange={onChangeHandler}/>
 			<button onClick={ addPosts }>Add post</button>
 			<div>
 				my posts:
