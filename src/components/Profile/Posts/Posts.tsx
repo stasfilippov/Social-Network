@@ -1,11 +1,10 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import {Post} from './Post/Post';
-import {PostType} from '../../../redux/state';
+import {ActionDispatchType, PostType} from '../../../redux/state';
 
 type PostsType = {
 	data: PostType[]
-	addPost: () => void
-	changeNewPostText: (newText: string) => void
+	dispatch: (action: ActionDispatchType)=> void
 	newPostText: string
 }
 
@@ -16,19 +15,19 @@ export const Posts = (props: PostsType) => {
 
 	let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
-	const addPosts = () => {
-		props.addPost()
+	const onClickHandler = () => {
+		props.dispatch({type: 'ADD-POST'})
 	}
 
 	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-		props.changeNewPostText(event.currentTarget.value)
+		props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: event.currentTarget.value})
 	}
 
 
 	return (
 		<>
 			<textarea value={props.newPostText} ref={newPostElement} onChange={onChangeHandler}/>
-			<button onClick={ addPosts }>Add post</button>
+			<button onClick={ onClickHandler }>Add post</button>
 			<div>
 				my posts:
 				<div>
