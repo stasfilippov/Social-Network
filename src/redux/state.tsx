@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
 export type DialogType = {
 	id: number
 	name: string
@@ -42,15 +45,16 @@ export type StateType = {
 	friendsData: FriendType[]
 }
 
-type AddPostActionType = {
+export type AddPostActionType = {
 	type:'ADD-POST'
 }
-type UpdateNewPostText = {
+export type UpdateNewPostText = {
 	type:'UPDATE-NEW-POST-TEXT'
 	newText: string
 }
 
 export type ActionDispatchType = AddPostActionType | UpdateNewPostText
+
 
 export let store = {
 	_state: {
@@ -104,7 +108,7 @@ export let store = {
 	},
 	dispatch (action: ActionDispatchType) {
 		switch (action.type) {
-			case 'ADD-POST':
+			case ADD_POST:
 				const newPost: PostType = {
 					id: 5,
 					postTitle: this._state.profilePage.newPostText,
@@ -114,7 +118,7 @@ export let store = {
 				this._state.profilePage.newPostText = ''
 				this._callSubscriber(this._state)
 				break;
-			case 'UPDATE-NEW-POST-TEXT':
+			case UPDATE_NEW_POST_TEXT:
 				this._state.profilePage.newPostText = action.newText
 				this._callSubscriber(this._state)
 				break;
@@ -123,4 +127,14 @@ export let store = {
 				throw new Error('Please pass correct action type')
 		}
 	}
+}
+
+export const addPostAC = (): AddPostActionType => {
+	return {
+		type: ADD_POST
+	}
+}
+export const updateNewPostTextAC = (text: string): UpdateNewPostText => {
+	return {type: UPDATE_NEW_POST_TEXT, newText: text}
+
 }

@@ -1,12 +1,19 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import {Post} from './Post/Post';
-import {ActionDispatchType, PostType} from '../../../redux/state';
+import {
+	ActionDispatchType,
+	addPostAC,
+	PostType,
+	updateNewPostTextAC
+} from '../../../redux/state';
 
 type PostsType = {
 	data: PostType[]
 	dispatch: (action: ActionDispatchType)=> void
 	newPostText: string
 }
+
+
 
 export const Posts = (props: PostsType) => {
 
@@ -16,11 +23,11 @@ export const Posts = (props: PostsType) => {
 	let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
 	const onClickHandler = () => {
-		props.dispatch({type: 'ADD-POST'})
+		props.dispatch(addPostAC())
 	}
 
 	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-		props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: event.currentTarget.value})
+		props.dispatch(updateNewPostTextAC(event.currentTarget.value))
 	}
 
 
