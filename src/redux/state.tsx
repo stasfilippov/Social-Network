@@ -1,3 +1,7 @@
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import {navbarReducer} from './navbar-reducer';
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
@@ -68,7 +72,7 @@ export type UnionActionDispatchType = AddPostActionType | UpdateNewPostTextActio
 
 
 export let store = {
-	_state: {
+	state: {
 		profilePage: {
 			postsData: [
 				{ id: 1, postTitle: 'Hi how are you?', likesCount: 14 },
@@ -116,38 +120,14 @@ export let store = {
 		this._callSubscriber = observer
 	},
 	getState() {
-		return this._state
+		return this.state
 	},
 	dispatch (action: UnionActionDispatchType) {
-		switch (action.type) {
-			case ADD_POST:
-				const newPost: PostType = {
-					id: 5,
-					postTitle: this._state.profilePage.newPostText,
-					likesCount: 0
-				}
-				this._state.profilePage.postsData.push(newPost)
-				this._state.profilePage.newPostText = ''
-				this._callSubscriber(this._state)
-				break;
-			case UPDATE_NEW_POST_TEXT:
-				this._state.profilePage.newPostText = action.newText
-				this._callSubscriber(this._state)
-				break;
-			case UPDATE_NEW_MESSAGE_BODY:
-				this._state.dialogsPage.messageBody = action.newMessageBody
-				this._callSubscriber(this._state)
-				break;
-			case SEND_MESSAGE:
-				const text = this._state.dialogsPage.messageBody
-				const message = { id: 4, message: text }
-				this._state.dialogsPage.messagesData.push(message)
-				this._state.dialogsPage.messageBody = ''
-				this._callSubscriber(this._state)
-				break;
-			default:
-				throw new Error('Please pass correct action type')
-		}
+		profileReducer(this.state.profilePage, action)
+		dialogsReducer(this.state.dialogsPage, action)
+		navbarReducer(this.state.navbarData, action)
+
+		this._callSubscriber(this.state)
 	}
 }
 

@@ -41,7 +41,7 @@ export const Dialogs = (props: DialogsPropsType) => {
 			</div>
 			<div className={classes.messages}>
 				<div>{mappingMessages}</div>
-				<textarea value={props.state.messageBody} onChange={onChangeHandler} ></textarea>
+				<textarea value={props.state.messageBody} onChange={onChangeHandler} placeholder={'Enter your message'}></textarea>
 				<button onClick={onClickHandler}>Отправить</button>
 			</div>
 		</div>
