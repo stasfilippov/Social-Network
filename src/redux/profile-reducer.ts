@@ -1,8 +1,24 @@
-import {PostType} from './state';
+import {
+	AddPostActionType,
+	PostType,
+	ProfilePageType,
+	UnionActionDispatchType,
+	UpdateNewPostTextActionType
+} from './state';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const profileReducer = (state: any, action: any) => {
+
+export const addPostAC = (): AddPostActionType => {
+	return {
+		type: ADD_POST
+	}
+}
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => {
+	return {type: UPDATE_NEW_POST_TEXT, newText: text}
+
+}
+const profileReducer = (state: ProfilePageType, action: UnionActionDispatchType) => {
 	switch (action.type) {
 		case ADD_POST:
 			const newPost: PostType = {

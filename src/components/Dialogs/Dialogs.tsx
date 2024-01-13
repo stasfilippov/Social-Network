@@ -2,14 +2,14 @@ import { NavLink } from 'react-router-dom'
 import {
 	DialogsPageType,
 	DialogType,
-	MessageType, sendMessageAC,
+	MessageType,
 	UnionActionDispatchType,
-	updateNewMessageBodyAC
 } from '../../redux/state'
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import { Message } from './Message/Message'
 import React, {ChangeEvent} from 'react';
+import {sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
 	state: DialogsPageType

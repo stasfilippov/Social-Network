@@ -2,10 +2,9 @@ import React, {ChangeEvent, RefObject} from 'react';
 import {Post} from './Post/Post';
 import {
 	UnionActionDispatchType,
-	addPostAC,
 	PostType,
-	updateNewPostTextAC
 } from '../../../redux/state';
+import {addPostAC, updateNewPostTextAC} from '../../../redux/profile-reducer';
 
 type PostsType = {
 	data: PostType[]

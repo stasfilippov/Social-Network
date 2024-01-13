@@ -2,11 +2,6 @@ import profileReducer from './profile-reducer';
 import dialogsReducer from './dialogs-reducer';
 import {navbarReducer} from './navbar-reducer';
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
-
 export type DialogType = {
 	id: number
 	name: string
@@ -131,20 +126,5 @@ export let store = {
 	}
 }
 
-export const addPostAC = (): AddPostActionType => {
-	return {
-		type: ADD_POST
-	}
-}
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => {
-	return {type: UPDATE_NEW_POST_TEXT, newText: text}
 
-}
 
-export const updateNewMessageBodyAC = (newMessageBody: string): UpdateNewMessageBodyActionType => {
-	return  {type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody}
-}
-
-export const sendMessageAC = (): SendMessageActionType => {
-	return { type: SEND_MESSAGE }
-}
