@@ -1,7 +1,7 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import {Post} from './Post/Post';
 import {
-	ActionDispatchType,
+	UnionActionDispatchType,
 	addPostAC,
 	PostType,
 	updateNewPostTextAC
@@ -9,7 +9,7 @@ import {
 
 type PostsType = {
 	data: PostType[]
-	dispatch: (action: ActionDispatchType)=> void
+	dispatch: (action: UnionActionDispatchType)=> void
 	newPostText: string
 }
 

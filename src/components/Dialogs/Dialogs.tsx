@@ -1,12 +1,19 @@
 import { NavLink } from 'react-router-dom'
-import { DialogsPageType, DialogType, MessageType } from '../../redux/state'
+import {
+	DialogsPageType,
+	DialogType,
+	MessageType, sendMessageAC,
+	UnionActionDispatchType,
+	updateNewMessageBodyAC
+} from '../../redux/state'
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import { Message } from './Message/Message'
-import React, {RefObject} from 'react';
+import React, {ChangeEvent} from 'react';
 
 type DialogsPropsType = {
 	state: DialogsPageType
+	dispatch: (action: UnionActionDispatchType)=> void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -18,10 +25,12 @@ export const Dialogs = (props: DialogsPropsType) => {
 		<Message key={m.id} message={m.message} id={m.id} />
 	))
 
-	const textAreaElement: RefObject<HTMLTextAreaElement> = React.createRef()
+	const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		props.dispatch(updateNewMessageBodyAC(event.currentTarget.value))
+	}
 
-	const sendMessage = () => {
-		alert('Сообщение: ' + textAreaElement.current?.value + ' - отправлено успешно!')
+	const onClickHandler = () => {
+		props.dispatch(sendMessageAC())
 	}
 
 	return (
@@ -32,8 +41,8 @@ export const Dialogs = (props: DialogsPropsType) => {
 			</div>
 			<div className={classes.messages}>
 				<div>{mappingMessages}</div>
-				<textarea ref={textAreaElement}></textarea>
-				<button onClick={sendMessage}>Отправить</button>
+				<textarea value={props.state.messageBody} onChange={onChangeHandler} ></textarea>
+				<button onClick={onClickHandler}>Отправить</button>
 			</div>
 		</div>
 	)

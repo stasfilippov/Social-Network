@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
+const SEND_MESSAGE = 'SEND-MESSAGE'
 
 export type DialogType = {
 	id: number
@@ -32,6 +34,7 @@ export type FriendType = {
 export type DialogsPageType = {
 	dialogsData: DialogType[]
 	messagesData: MessageType[]
+	messageBody: string
 }
 export type ProfilePageType = {
 	postsData: PostType[]
@@ -48,12 +51,20 @@ export type StateType = {
 export type AddPostActionType = {
 	type:'ADD-POST'
 }
-export type UpdateNewPostText = {
+export type UpdateNewPostTextActionType = {
 	type:'UPDATE-NEW-POST-TEXT'
 	newText: string
 }
+export type UpdateNewMessageBodyActionType = {
+	type: 'UPDATE-NEW-MESSAGE-BODY'
+	newMessageBody: string
+}
 
-export type ActionDispatchType = AddPostActionType | UpdateNewPostText
+export type SendMessageActionType = {
+	type: 'SEND-MESSAGE'
+}
+
+export type UnionActionDispatchType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType
 
 
 export let store = {
@@ -81,6 +92,7 @@ export let store = {
 				{ id: 2, message: 'How are you?' },
 				{ id: 3, message: 'I am fine' },
 			],
+			messageBody: ''
 		},
 		navbarData: [
 			{ id: 1, menuName: 'Profile', src: '', slug: '/profile' },
@@ -106,7 +118,7 @@ export let store = {
 	getState() {
 		return this._state
 	},
-	dispatch (action: ActionDispatchType) {
+	dispatch (action: UnionActionDispatchType) {
 		switch (action.type) {
 			case ADD_POST:
 				const newPost: PostType = {
@@ -122,7 +134,17 @@ export let store = {
 				this._state.profilePage.newPostText = action.newText
 				this._callSubscriber(this._state)
 				break;
-
+			case UPDATE_NEW_MESSAGE_BODY:
+				this._state.dialogsPage.messageBody = action.newMessageBody
+				this._callSubscriber(this._state)
+				break;
+			case SEND_MESSAGE:
+				const text = this._state.dialogsPage.messageBody
+				const message = { id: 4, message: text }
+				this._state.dialogsPage.messagesData.push(message)
+				this._state.dialogsPage.messageBody = ''
+				this._callSubscriber(this._state)
+				break;
 			default:
 				throw new Error('Please pass correct action type')
 		}
@@ -134,7 +156,15 @@ export const addPostAC = (): AddPostActionType => {
 		type: ADD_POST
 	}
 }
-export const updateNewPostTextAC = (text: string): UpdateNewPostText => {
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => {
 	return {type: UPDATE_NEW_POST_TEXT, newText: text}
 
+}
+
+export const updateNewMessageBodyAC = (newMessageBody: string): UpdateNewMessageBodyActionType => {
+	return  {type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody}
+}
+
+export const sendMessageAC = (): SendMessageActionType => {
+	return { type: SEND_MESSAGE }
 }

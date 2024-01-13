@@ -8,11 +8,11 @@ import Profile from './components/Profile/Profile'
 // import {News} from './components/News/News';
 // import {Music} from './components/Music/Music';
 // import {Settings} from './components/Settings/Settings';
-import {ActionDispatchType, StateType} from './redux/state'
+import {UnionActionDispatchType, StateType} from './redux/state'
 
 type AppPropsType = {
 	state: StateType
-	dispatch: (action: ActionDispatchType)=> void
+	dispatch: (action: UnionActionDispatchType)=> void
 }
 
 const App: React.FC<AppPropsType> = props => {
@@ -32,7 +32,7 @@ const App: React.FC<AppPropsType> = props => {
 					<Route
 						exact
 						path={'/dialogs'}
-						render={() => <Dialogs state={props.state.dialogsPage} />}
+						render={() => <Dialogs state={props.state.dialogsPage} dispatch={props.dispatch} />}
 					/>
 					{/*<Route path={'/news'} component={News}/>*/}
 					{/*<Route path={'/music'} component={Music}/>*/}
