@@ -1,38 +1,37 @@
-import React, {ChangeEvent, RefObject} from 'react';
+import React, {ChangeEvent} from 'react';
 import {Post} from './Post/Post';
 import {
-	UnionActionDispatchType,
 	PostType,
-} from '../../../redux/state';
-import {addPostAC, updateNewPostTextAC} from '../../../redux/profile-reducer';
+} from '../../../redux/store';
 
 type PostsType = {
 	data: PostType[]
-	dispatch: (action: UnionActionDispatchType)=> void
 	newPostText: string
+	updateNewPostText: (text: string) => void
+	addPost: () => void
 }
 
 
 
-export const Posts = (props: PostsType) => {
+export const Posts:React.FC<PostsType> = (props) => {
 
 	const mappingPosts = props.data.map(p => <Post key={p.id} id={p.id} postTitle={p.postTitle} likesCount={p.likesCount}/>)
 
 
-	let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
+
 
 	const onClickHandler = () => {
-		props.dispatch(addPostAC())
-	}
+		props.addPost()
 
+	}
 	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-		props.dispatch(updateNewPostTextAC(event.currentTarget.value))
+		props.updateNewPostText(event.currentTarget.value)
 	}
 
 
 	return (
 		<>
-			<textarea value={props.newPostText} ref={newPostElement} onChange={onChangeHandler}/>
+			<textarea value={props.newPostText}  onChange={onChangeHandler}/>
 			<button onClick={ onClickHandler }>Add post</button>
 			<div>
 				my posts:

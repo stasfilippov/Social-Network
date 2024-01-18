@@ -1,24 +1,39 @@
 import {
-	AddPostActionType,
-	PostType,
-	ProfilePageType,
 	UnionActionDispatchType,
-	UpdateNewPostTextActionType
-} from './state';
+} from './store';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-export const addPostAC = (): AddPostActionType => {
+export const addPostAC = () => {
 	return {
 		type: ADD_POST
-	}
+	} as const
 }
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => {
-	return {type: UPDATE_NEW_POST_TEXT, newText: text}
+export const updateNewPostTextAC = (text: string) => {
+	return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
+}
 
+export type PostType = {
+	postTitle: string
+	likesCount: number
+	id: number
 }
-const profileReducer = (state: ProfilePageType, action: UnionActionDispatchType) => {
+export type ProfilePageType = {
+	postsData: PostType[]
+	newPostText: string
+}
+
+let initialState: ProfilePageType = {
+	postsData: [
+		{ id: 1, postTitle: 'Hi how are you?', likesCount: 14 },
+		{ id: 2, postTitle: 'Yo i am very happy', likesCount: 10 },
+		{ id: 3, postTitle: 'Yo i am very happy', likesCount: 10 },
+		{ id: 4, postTitle: 'Yo i', likesCount: 10 },
+	],
+	newPostText: ''
+}
+export const profileReducer = (state = initialState, action: UnionActionDispatchType) => {
 	switch (action.type) {
 		case ADD_POST:
 			const newPost: PostType = {
@@ -37,4 +52,3 @@ const profileReducer = (state: ProfilePageType, action: UnionActionDispatchType)
 	}
 }
 
-export default profileReducer;

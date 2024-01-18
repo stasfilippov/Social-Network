@@ -2,21 +2,21 @@ import { NavLink } from 'react-router-dom'
 import {
 	DialogsPageType,
 	DialogType,
-	MessageType,
+	MessageType, StoreType,
 	UnionActionDispatchType,
-} from '../../redux/state'
+} from '../../redux/store'
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import { Message } from './Message/Message'
 import React, {ChangeEvent} from 'react';
-import {sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
 	state: DialogsPageType
-	dispatch: (action: UnionActionDispatchType)=> void
+	onChangeCallback: (text: string) => void
+	onClickCallback: () => void
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs:React.FC<DialogsPropsType> = (props) => {
 	const mappingDialogs = props.state.dialogsData.map((d: DialogType) => (
 		<DialogItem key={d.id} name={d.name} id={d.id} />
 	))
@@ -26,11 +26,11 @@ export const Dialogs = (props: DialogsPropsType) => {
 	))
 
 	const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		props.dispatch(updateNewMessageBodyAC(event.currentTarget.value))
+		props.onChangeCallback(event.currentTarget.value)
 	}
 
 	const onClickHandler = () => {
-		props.dispatch(sendMessageAC())
+		props.onClickCallback()
 	}
 
 	return (

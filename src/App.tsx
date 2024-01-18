@@ -8,10 +8,11 @@ import Profile from './components/Profile/Profile'
 // import {News} from './components/News/News';
 // import {Music} from './components/Music/Music';
 // import {Settings} from './components/Settings/Settings';
-import {UnionActionDispatchType, StateType} from './redux/state'
+import {UnionActionDispatchType, RootStateType, StoreType} from './redux/store'
+import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
 type AppPropsType = {
-	state: StateType
+	store: StoreType
 	dispatch: (action: UnionActionDispatchType)=> void
 }
 
@@ -21,18 +22,18 @@ const App: React.FC<AppPropsType> = props => {
 			<div className={'app-wrapper'}>
 				<Header />
 				<Navbar
-					menuDate={props.state.navbarData}
-					friendsData={props.state.friendsData}
+					menuDate={props.store.getState().sidebar.navbarData}
+					friendsData={props.store.getState().sidebar.friendsData}
 				/>
 				<div className={'app-wrapper-content'}>
 					<Route
 						path={'/profile'}
-						render={() => <Profile dispatch={props.dispatch} state={props.state.profilePage} />}
+						render={() => <Profile store={props.store} />}
 					/>
 					<Route
 						exact
 						path={'/dialogs'}
-						render={() => <Dialogs state={props.state.dialogsPage} dispatch={props.dispatch} />}
+						render={() => <DialogsContainer store={props.store}/>}
 					/>
 					{/*<Route path={'/news'} component={News}/>*/}
 					{/*<Route path={'/music'} component={Music}/>*/}

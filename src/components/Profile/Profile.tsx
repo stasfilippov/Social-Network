@@ -2,18 +2,19 @@ import React from 'react';
 import st from './Profile.module.css'
 import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {UnionActionDispatchType, ProfilePageType,} from '../../redux/state';
+import {UnionActionDispatchType, ProfilePageType, StoreType,} from '../../redux/store';
+import {PostsContainer} from './Posts/PostsContainer';
 
 type ProfileType = {
-	state: ProfilePageType
-	dispatch: (action: UnionActionDispatchType)=> void
+	store: StoreType
 }
 
-const Profile = (props: ProfileType) => {
+const Profile: React.FC<ProfileType> = (props) => {
 	return (
 		<div className={st.profilePageWrapper}>
 			<ProfileInfo/>
-			<Posts newPostText={props.state.newPostText} dispatch={props.dispatch} data={props.state.postsData}/>
+			<PostsContainer store={props.store} />
+			{/*newPostText={props.state.newPostText} dispatch={props.dispatch} data={props.state.postsData}*/}
 		</div>
 	)
 }

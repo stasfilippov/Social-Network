@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { FriendType, MenuType } from '../../redux/state'
+import { FriendType, MenuType } from '../../redux/store'
 import st from './Navbar.module.css'
 
 type NavbarPropsType = {
