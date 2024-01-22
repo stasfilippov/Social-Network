@@ -1,17 +1,8 @@
-import {
-	UnionActionDispatchType,
-} from './store';
+import {UnionActionDispatchType} from './redux-store';
+
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 const SEND_MESSAGE = 'SEND-MESSAGE'
-
-export const updateNewMessageBodyAC = (newMessageBody: string) => {
-	return  {type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody} as const
-}
-
-export const sendMessageAC = () => {
-	return { type: SEND_MESSAGE } as const
-}
 
 export type DialogType = {
 	id: number
@@ -46,16 +37,33 @@ let initialState: DialogsPageType = {
 export const dialogsReducer = (state = initialState, action: UnionActionDispatchType) => {
 	switch (action.type) {
 		case UPDATE_NEW_MESSAGE_BODY:
-			state.messageBody = action.newMessageBody
-			break;
+			return {
+				...state,
+				messageBody: action.newMessageBody
+			}
 		case SEND_MESSAGE:
 			const text = state.messageBody
-			state.messageBody = ''
 			const message = { id: 4, message: text }
-			state.messagesData.push(message)
-			break;
+			return {
+				...state,
+				messagesData: [
+					...state.messagesData,
+					message
+				],
+				messageBody: ''
+			};
 		default:
 			return state
 	}
 }
 
+export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
+export type SendMessageActionType = ReturnType<typeof sendMessageAC>
+
+export const updateNewMessageBodyAC = (newMessageBody: string) => {
+	return  {type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody} as const
+}
+
+export const sendMessageAC = () => {
+	return { type: SEND_MESSAGE } as const
+}

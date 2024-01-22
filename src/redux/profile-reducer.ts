@@ -1,18 +1,10 @@
-import {
-	UnionActionDispatchType,
-} from './store';
+import {UnionActionDispatchType} from './redux-store';
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-export const addPostAC = () => {
-	return {
-		type: ADD_POST
-	} as const
-}
-export const updateNewPostTextAC = (text: string) => {
-	return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
-}
+
 
 export type PostType = {
 	postTitle: string
@@ -41,14 +33,32 @@ export const profileReducer = (state = initialState, action: UnionActionDispatch
 				postTitle: state.newPostText,
 				likesCount: 0
 			}
-			state.postsData.push(newPost)
-			state.newPostText = ''
-			return state;
+			return {
+				...state,
+				postsData: [
+					...state.postsData,
+					newPost
+				],
+				newPostText: ''
+			}
 		case UPDATE_NEW_POST_TEXT:
-			state.newPostText = action.newText
-			return state;
+			return {
+				...state,
+				newPostText: action.newText
+			}
 		default:
 			return state;
 	}
 }
 
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+
+export const addPostAC = () => {
+	return {
+		type: ADD_POST
+	} as const
+}
+export const updateNewPostTextAC = (text: string) => {
+	return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
+}

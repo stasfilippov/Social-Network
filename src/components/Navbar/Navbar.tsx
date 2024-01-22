@@ -7,7 +7,7 @@ type NavbarPropsType = {
 	friendsData: FriendType[]
 }
 
-const Navbar = (props: NavbarPropsType) => {
+export const Navbar = (props: NavbarPropsType) => {
 	const itemsNav = props.menuDate.map(el => (
 		<div className={st.item} key={el.id}>
 			<NavLink activeClassName={st.active} to={el.slug}>

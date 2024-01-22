@@ -1,10 +1,21 @@
-import {SidebarType, UnionActionDispatchType} from './store';
+import {UnionActionDispatchType} from './redux-store';
 
 export type MenuType = {
 	id: number
 	menuName: string
 	src: string
 	slug: string
+}
+
+export type FriendType = {
+	id: number
+	nameFriend: string
+	srcImg: string
+}
+
+export type SidebarType = {
+	navbarData: MenuType[]
+	friendsData: FriendType[]
 }
 
 let initialState: SidebarType = {

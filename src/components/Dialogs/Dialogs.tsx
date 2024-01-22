@@ -1,27 +1,23 @@
 import { NavLink } from 'react-router-dom'
-import {
-	DialogsPageType,
-	DialogType,
-	MessageType, StoreType,
-	UnionActionDispatchType,
-} from '../../redux/store'
+
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import { Message } from './Message/Message'
 import React, {ChangeEvent} from 'react';
+import {DialogsPageType, DialogType, MessageType} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
-	state: DialogsPageType
+	data: DialogsPageType
 	onChangeCallback: (text: string) => void
 	onClickCallback: () => void
 }
 
 export const Dialogs:React.FC<DialogsPropsType> = (props) => {
-	const mappingDialogs = props.state.dialogsData.map((d: DialogType) => (
+	const mappingDialogs = props.data.dialogsData.map((d: DialogType) => (
 		<DialogItem key={d.id} name={d.name} id={d.id} />
 	))
 
-	const mappingMessages = props.state.messagesData.map((m: MessageType) => (
+	const mappingMessages = props.data.messagesData.map((m: MessageType) => (
 		<Message key={m.id} message={m.message} id={m.id} />
 	))
 
@@ -41,7 +37,7 @@ export const Dialogs:React.FC<DialogsPropsType> = (props) => {
 			</div>
 			<div className={classes.messages}>
 				<div>{mappingMessages}</div>
-				<textarea value={props.state.messageBody} onChange={onChangeHandler} placeholder={'Enter your message'}></textarea>
+				<textarea value={props.data.messageBody} onChange={onChangeHandler} placeholder={'Enter your message'}></textarea>
 				<button onClick={onClickHandler}>Отправить</button>
 			</div>
 		</div>

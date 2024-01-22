@@ -1,6 +1,7 @@
 import {addPostAC, profileReducer, updateNewPostTextAC} from './profile-reducer';
 import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
+import {UnionActionDispatchType} from './redux-store';
 
 export type DialogType = {
 	id: number
@@ -45,12 +46,9 @@ export type RootStateType = {
 	sidebar: SidebarType
 }
 
-export type AddPostActionType = ReturnType<typeof addPostAC>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
-export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
-export type SendMessageActionType = ReturnType<typeof sendMessageAC>
 
-export type UnionActionDispatchType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType
+
+
 
 export type StoreType = {
 	_state: RootStateType
