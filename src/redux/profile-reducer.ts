@@ -11,21 +11,19 @@ export type PostType = {
 	likesCount: number
 	id: number
 }
-export type ProfilePageType = {
-	postsData: PostType[]
-	newPostText: string
-}
 
-let initialState: ProfilePageType = {
+let initialState = {
 	postsData: [
 		{ id: 1, postTitle: 'Hi how are you?', likesCount: 14 },
 		{ id: 2, postTitle: 'Yo i am very happy', likesCount: 10 },
 		{ id: 3, postTitle: 'Yo i am very happy', likesCount: 10 },
 		{ id: 4, postTitle: 'Yo i', likesCount: 10 },
-	],
+	] as PostType[],
 	newPostText: ''
 }
-export const profileReducer = (state = initialState, action: UnionActionDispatchType) => {
+
+type InitialStateType = typeof initialState
+export const profileReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType):InitialStateType => {
 	switch (action.type) {
 		case ADD_POST:
 			const newPost: PostType = {

@@ -12,13 +12,8 @@ export type MessageType = {
 	id: number
 	message: string
 }
-export type DialogsPageType = {
-	dialogsData: DialogType[]
-	messagesData: MessageType[]
-	messageBody: string
-}
 
-let initialState: DialogsPageType = {
+let initialState = {
 	dialogsData: [
 		{ id: 1, name: 'Dimych' },
 		{ id: 2, name: 'Igor'},
@@ -26,15 +21,17 @@ let initialState: DialogsPageType = {
 		{ id: 4, name: 'Sveta'},
 		{ id: 5, name: 'Sasha'},
 		{ id: 6, name: 'Valera'},
-	],
+	] as DialogType[],
 	messagesData: [
 		{ id: 1, message: 'Hi' },
 		{ id: 2, message: 'How are you?' },
 		{ id: 3, message: 'I am fine' },
-	],
+	] as MessageType[],
 	messageBody: ''
 }
-export const dialogsReducer = (state = initialState, action: UnionActionDispatchType) => {
+
+type InitialStateType = typeof initialState
+export const dialogsReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType): InitialStateType => {
 	switch (action.type) {
 		case UPDATE_NEW_MESSAGE_BODY:
 			return {

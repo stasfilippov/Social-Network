@@ -1,19 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import {Post} from './Post/Post';
-import {
-	PostType,
-} from '../../../redux/store';
-
-type PostsType = {
-	data: PostType[]
-	newPostText: string
-	updateNewPostText: (text: string) => void
-	addPost: () => void
-}
+import {PostsPropsType} from './PostsContainer';
 
 
 
-export const Posts:React.FC<PostsType> = (props) => {
+
+export const Posts:React.FC<PostsPropsType> = (props) => {
 
 	const mappingPosts = props.data.map(p => <Post key={p.id} id={p.id} postTitle={p.postTitle} likesCount={p.likesCount}/>)
 

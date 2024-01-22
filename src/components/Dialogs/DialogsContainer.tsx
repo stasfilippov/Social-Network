@@ -1,17 +1,27 @@
 
-import {sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
+import {DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppRootState, UnionActionDispatchType} from '../../redux/redux-store';
+import {Dispatch} from 'redux';
 
 
-const mapStateToProps = (state: AppRootState) => {
+type MapStateToPropsType = {
+	data: DialogsPageType
+}
+
+const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 	return {
 		data: state.dialogs
 	}
 }
 
-const mapDispatchToProps = (dispatch: (actionCreator: UnionActionDispatchType) => void) => {
+type MapDispatchToPropsType = {
+	onChangeCallback: (text: string) => void
+	onClickCallback: () => void
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 	return {
 		onChangeCallback: (text: string) => {
 			dispatch(updateNewMessageBodyAC(text))
@@ -21,5 +31,7 @@ const mapDispatchToProps = (dispatch: (actionCreator: UnionActionDispatchType) =
 		}
 	}
 }
+
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

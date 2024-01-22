@@ -4,13 +4,9 @@ import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import { Message } from './Message/Message'
 import React, {ChangeEvent} from 'react';
-import {DialogsPageType, DialogType, MessageType} from '../../redux/dialogs-reducer';
+import {DialogType, MessageType} from '../../redux/dialogs-reducer';
+import {DialogsPropsType} from './DialogsContainer';
 
-type DialogsPropsType = {
-	data: DialogsPageType
-	onChangeCallback: (text: string) => void
-	onClickCallback: () => void
-}
 
 export const Dialogs:React.FC<DialogsPropsType> = (props) => {
 	const mappingDialogs = props.data.dialogsData.map((d: DialogType) => (

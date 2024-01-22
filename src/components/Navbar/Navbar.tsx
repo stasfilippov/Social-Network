@@ -1,11 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { FriendType, MenuType } from '../../redux/store'
 import st from './Navbar.module.css'
+import {NavbarPropsType} from './NavbarContainer';
 
-type NavbarPropsType = {
-	menuDate: MenuType[]
-	friendsData: FriendType[]
-}
 
 export const Navbar = (props: NavbarPropsType) => {
 	const itemsNav = props.menuDate.map(el => (
