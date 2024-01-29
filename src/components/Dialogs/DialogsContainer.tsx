@@ -1,13 +1,13 @@
 
-import {DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
+import {InitialStateType, sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
-import {AppRootState, UnionActionDispatchType} from '../../redux/redux-store';
+import {AppRootState} from '../../redux/redux-store';
 import {Dispatch} from 'redux';
 
 
 type MapStateToPropsType = {
-	data: DialogsPageType
+	data: InitialStateType
 }
 
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {

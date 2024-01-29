@@ -5,6 +5,7 @@ import Header from './components/Header/Header'
 import Profile from './components/Profile/Profile'
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {NavbarContainer} from './components/Navbar/NavbarContainer';
+import {NetworkContainer} from './components/Network/NetworkContainer';
 
 
 
@@ -24,7 +25,7 @@ const App: React.FC = props => {
 						path={'/dialogs'}
 						render={() => <DialogsContainer/>}
 					/>
-					{/*<Route path={'/news'} component={News}/>*/}
+					<Route path={'/network'} render={() => <NetworkContainer/>}/>
 					{/*<Route path={'/music'} component={Music}/>*/}
 					{/*<Route path={'/settings'} component={Settings}/>*/}
 				</div>

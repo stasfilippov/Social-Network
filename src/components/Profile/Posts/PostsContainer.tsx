@@ -1,8 +1,7 @@
-import {addPostAC, updateNewPostTextAC} from '../../../redux/profile-reducer';
+import {addPostAC, PostType, updateNewPostTextAC} from '../../../redux/profile-reducer';
 import {Posts} from './Posts';
 import {connect} from 'react-redux';
-import {AppRootState, UnionActionDispatchType} from '../../../redux/redux-store';
-import {PostType} from '../../../redux/store';
+import {AppRootState} from '../../../redux/redux-store';
 import {Dispatch} from 'redux';
 
 

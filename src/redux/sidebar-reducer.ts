@@ -19,8 +19,9 @@ let initialState = {
 		{ id: 1, menuName: 'Profile', src: '', slug: '/profile' },
 		{ id: 2, menuName: 'Messages', src: '', slug: '/dialogs' },
 		{ id: 3, menuName: 'News', src: '', slug: '/news' },
-		{ id: 4, menuName: 'Music', src: '', slug: '/music' },
-		{ id: 5, menuName: 'Settings', src: '', slug: '/settings' },
+		{ id: 4, menuName: 'Network', src: '', slug: '/network' },
+		{ id: 5, menuName: 'Music', src: '', slug: '/music' },
+		{ id: 6, menuName: 'Settings', src: '', slug: '/settings' },
 	] as MenuType[],
 		friendsData: [
 		{ id: 1, nameFriend: 'Vasya', srcImg: 'ava1' },
@@ -31,7 +32,7 @@ let initialState = {
 	] as FriendType[],
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const sidebarReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType):InitialStateType => {
 	return state
