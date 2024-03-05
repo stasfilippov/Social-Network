@@ -1,31 +1,29 @@
 import React from 'react';
 import styles from './Network.module.css'
+import {userType} from '../../redux/network-reducer';
+import UserAvatar from '../../images/user_avatar.png'
 
 type UserCardType = {
-	userId: number
+	userData: userType
 	callback: (userId: number) => void
-	firstName: string
-	secondName: string
-	profession: string
-	followed: boolean
+
 }
-export const UserCard:React.FC<UserCardType> = ({callback,
-	                                                userId,
-	                                                firstName,
-	                                                secondName,
-	                                                profession,
-	                                                followed
+export const UserCard:React.FC<UserCardType> = ({callback, userData
                                                 }) => {
 
 	const onClickHandler = () => {
-		callback(userId)
+		callback(userData.id)
 	}
 
 	return (
 		<div className={styles.userCard_container}>
-			<div>{firstName + ' ' + secondName}</div>
-			<div>{profession}</div>
-			<button onClick={onClickHandler}>{followed ? 'Following' : 'Accept'}</button>
+			<img src={userData.photos.small !== null
+				? userData.photos.small
+				: UserAvatar} alt="user_avatar" className={styles.userCard_image}
+			/>
+			<div>{userData.name}</div>
+			<div>{userData.status}</div>
+			<button onClick={onClickHandler}>{userData.followed ? 'Following' : 'Accept'}</button>
 		</div>
 	);
 };

@@ -2,51 +2,31 @@ import React from 'react';
 import styles from './Network.module.css'
 import {NetworkPropsType} from './NetworkContainer';
 import {UserCard} from './UserCard';
+import axios from 'axios';
+import {userType} from '../../redux/network-reducer';
 
 
 
+
+type ResponseType = {
+	items: userType []
+	totalCount: number
+	error: string
+}
 
 export const Network:React.FC<NetworkPropsType> = ({usersData, callBack, setUsers}) => {
-
 	if (usersData.length === 0) {
-		setUsers([
-			{
-				id: 1,
-				profileImg: '',
-				firstName: 'Jane',
-				secondName: 'Cooper',
-				profession: 'SMM manager - Orion Soft',
-				followed: false
-			},
-			{
-				id: 2,
-				profileImg: '',
-				firstName: 'Olya',
-				secondName: 'Bondareva',
-				profession: 'HR Specialist - Freelance',
-				followed: false
-
-			},
-			{
-				id: 3,
-				profileImg: '',
-				firstName: 'Jane',
-				secondName: 'Cooper',
-				profession: 'IT Sales & Business Development Professional',
-				followed: true
-			}
-		])
+		axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
+			.then(res => {
+				setUsers(res.data.items)
+			})
 	}
 
 	let mappingUsers = usersData.map(u =>
 		<UserCard
 			key={u.id}
-			userId={u.id}
+			userData={u}
 			callback={callBack}
-			firstName={u.firstName}
-			secondName={u.secondName}
-			profession={u.profession}
-			followed={u.followed}
 		/>)
 
 	return (

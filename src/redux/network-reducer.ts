@@ -6,14 +6,16 @@ const SET_USERS = 'SET_USERS'
 
 
 export type userType = {
-	id: number
-	profileImg: string
-	firstName: string
-	secondName: string
-	profession: string
+	name: string,
+	id: number,
+	uniqueUrlName: string | null,
+	photos: {
+		small: string | null,
+		large: string | null
+	},
+	status: string,
 	followed: boolean
 }
-
 
 
 let initialState = {
