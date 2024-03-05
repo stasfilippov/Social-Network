@@ -1,0 +1,83 @@
+import {UnionActionDispatchType} from './redux-store';
+
+
+const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
+const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
+
+
+export type userType = {
+	name: string,
+	id: number,
+	uniqueUrlName: string | null,
+	photos: {
+		small: string | null,
+		large: string | null
+	},
+	status: string,
+	followed: boolean
+}
+
+export type InitialStateType = {
+	users: userType[]
+	pageSize: number
+	totalUsersCount: number
+	currentPage: number
+}
+
+let initialState = {
+	users: [],
+	pageSize: 10,
+	totalUsersCount: 0,
+	currentPage: 2
+}
+
+export const networkReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType): InitialStateType => {
+	switch (action.type) {
+		case TOGGLE_FOLLOW: {
+			return {
+				...state,
+				users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
+			}
+		}
+		case SET_USERS: {
+			return {...state,
+				users: [...action.users]
+			}
+		}
+		case SET_CURRENT_PAGE: {
+			return {
+				...state,
+				currentPage: action.currentPage
+			}
+		}
+		case SET_TOTAL_USERS_COUNT: {
+			return {
+				...state,
+				totalUsersCount: action.totalUsersCount
+			}
+		}
+
+		default:
+			return state
+	}
+}
+
+export type ToggleFollowActionType = ReturnType<typeof toggleFollowAC>
+export type UsersActionType = ReturnType<typeof setUsersAC>
+export type SetPageActionType = ReturnType<typeof setPageAC>
+export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+
+export const toggleFollowAC = (userId: number) => {
+	return  {type: TOGGLE_FOLLOW, userId} as const
+}
+export const setUsersAC = (users: userType[]) => {
+	return  {type: SET_USERS, users} as const
+}
+export const setPageAC = (currentPage: number) => {
+	return  {type: SET_CURRENT_PAGE, currentPage} as const
+}
+export const setTotalUsersCount = (totalUsersCount: number) => {
+	return  {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
+}

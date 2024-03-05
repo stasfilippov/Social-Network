@@ -1,0 +1,27 @@
+.dialogs_content {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 313px 1fr;
+	border-radius: 20px;
+	background: #fff;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+}
+.title {
+	color: #071b2a;
+	font-size: 22px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+    text-decoration: none;
+}
+.dialogs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+	padding: 30px;
+	border-right: 2px solid #E3E3E3;
+}
+
+.messages {
+	padding: 20px;
+}

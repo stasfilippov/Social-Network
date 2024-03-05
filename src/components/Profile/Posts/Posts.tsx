@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {Post} from './Post/Post';
+import {PostsPropsType} from './PostsContainer';
 
-export const Posts = () => {
+
+
+
+export const Posts:React.FC<PostsPropsType> = (props) => {
+
+	const mappingPosts = props.data.map(p => <Post key={p.id} id={p.id} postTitle={p.postTitle} likesCount={p.likesCount}/>)
+
+
+
+
+	const onClickHandler = () => {
+		props.addPost()
+
+	}
+	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
+		props.updateNewPostText(event.currentTarget.value)
+	}
+
+
 	return (
 		<>
-			<textarea></textarea>
-			<button>Add post</button>
+			<textarea value={props.newPostText}  onChange={onChangeHandler}/>
+			<button onClick={ onClickHandler }>Add post</button>
 			<div>
 				my posts:
 				<div>
-					<Post title={'Hi how are you?'} count={14}/>
-					<Post title={'Yo i am very happy'} count={10}/>
+					{mappingPosts}
 				</div>
 			</div>
 		</>

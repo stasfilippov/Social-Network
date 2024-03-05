@@ -1,8 +1,69 @@
+.navWrapper {
+	grid-area: n;
+}
 .nav {
-    grid-area: n;
-    background-color: cornflowerblue;
+	border-radius: 20px;
+	background-color: #fff;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+	padding: 30px;
+	margin-bottom: 30px;
 }
 
 .item {
-    color: white;
+	min-height: 40px;
+	display: flex;
+	align-items: center;
+}
+
+.item a {
+	color: #a0a0a0;
+	text-decoration: none;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 150%;
+}
+
+.item a.active {
+	color: #0a66c2;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 150%;
+}
+
+.friendsNav {
+	border-radius: 20px;
+	background-color: #fff;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+	padding: 30px;
+}
+
+.friendsNavTitle {
+	font-size: 22px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	margin-bottom: 30px;
+}
+.friendsList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.friendsListItem {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+.friendsListItem:last-child {
+	margin-bottom: 0;
+}
+
+.friendsImg {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%; 
 }
