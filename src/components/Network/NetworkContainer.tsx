@@ -1,9 +1,8 @@
-
 import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {Dispatch} from 'redux';
-import {Network} from './Network';
 import {setUsersAC, toggleFollowAC, userType} from '../../redux/network-reducer';
+import Network from './Network';
 
 
 type MapStateToPropsType = {
