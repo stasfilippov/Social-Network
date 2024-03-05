@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {Dispatch} from 'redux';
 import {setPageAC, setTotalUsersCount, setUsersAC, toggleFollowAC, userType} from '../../redux/network-reducer';
-import Network from './Network';
+import NetworkAPIContainer from './NetworkAPIContainer';
 
 
 type MapStateToPropsType = {
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 
 export type NetworkPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-export const NetworkContainer = connect(mapStateToProps, mapDispatchToProps)(Network)
+export const NetworkContainer = connect(mapStateToProps, mapDispatchToProps)(NetworkAPIContainer)
