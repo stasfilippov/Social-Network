@@ -30,3 +30,25 @@
     height: 60px;
     object-fit: cover;
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: #0a66c2;
+    font-size: 18px;
+    line-height: 150%;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.page {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: #0a66c2;
+    margin-right: 5px;
+    cursor: pointer;
+
+}
+
+.selectedPage:hover, .page:hover {
+    text-decoration: underline;
+}
