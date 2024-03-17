@@ -6,7 +6,7 @@ import {
 	networkReducer,
 	SetPageActionType,
 	SetTotalUsersCountActionType,
-	ToggleFollowActionType,
+	ToggleFollowActionType, ToggleIsFetchingActionType,
 	UsersActionType
 } from './network-reducer';
 
@@ -22,4 +22,12 @@ export type AppRootState = ReturnType<typeof rootReducer>
 
 export let store = createStore(rootReducer)
 
-export type UnionActionDispatchType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType | ToggleFollowActionType | UsersActionType | SetPageActionType | SetTotalUsersCountActionType
+export type UnionActionDispatchType = AddPostActionType
+	| UpdateNewPostTextActionType
+	| UpdateNewMessageBodyActionType
+	| SendMessageActionType
+	| ToggleFollowActionType
+	| UsersActionType
+	| SetPageActionType
+	| SetTotalUsersCountActionType
+	| ToggleIsFetchingActionType

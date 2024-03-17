@@ -5,6 +5,7 @@ const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 
 export type userType = {
@@ -24,13 +25,15 @@ export type InitialStateType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
+	isFetching: boolean
 }
 
 let initialState = {
 	users: [],
 	pageSize: 10,
 	totalUsersCount: 0,
-	currentPage: 2
+	currentPage: 1,
+	isFetching: false
 }
 
 export const networkReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType): InitialStateType => {
@@ -58,6 +61,8 @@ export const networkReducer = (state: InitialStateType = initialState, action: U
 				totalUsersCount: action.totalUsersCount
 			}
 		}
+		case TOGGLE_IS_FETCHING:
+			return {...state, isFetching: action.isFetching}
 
 		default:
 			return state
@@ -68,6 +73,7 @@ export type ToggleFollowActionType = ReturnType<typeof toggleFollowAC>
 export type UsersActionType = ReturnType<typeof setUsersAC>
 export type SetPageActionType = ReturnType<typeof setPageAC>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetchingAC>
 
 export const toggleFollowAC = (userId: number) => {
 	return  {type: TOGGLE_FOLLOW, userId} as const
@@ -81,3 +87,4 @@ export const setPageAC = (currentPage: number) => {
 export const setTotalUsersCount = (totalUsersCount: number) => {
 	return  {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
 }
+export const toggleIsFetchingAC = (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching} as const)
