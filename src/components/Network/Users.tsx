@@ -21,7 +21,7 @@ const Users: React.FC<UsersType> = ({
 	                                    callBack
                                     }) => {
 
-	let pagesCount = Math.ceil(totalUsersCount / pageSize)
+	// let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
 	let pages = []
 

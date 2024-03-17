@@ -1,6 +1,11 @@
 import {combineReducers, createStore} from 'redux';
 import {sidebarReducer} from './sidebar-reducer';
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profile-reducer';
+import {
+	AddPostActionType,
+	profileReducer,
+	SetUserProfileDataActionType,
+	UpdateNewPostTextActionType
+} from './profile-reducer';
 import {dialogsReducer, SendMessageActionType, UpdateNewMessageBodyActionType} from './dialogs-reducer';
 import {
 	networkReducer,
@@ -31,3 +36,4 @@ export type UnionActionDispatchType = AddPostActionType
 	| SetPageActionType
 	| SetTotalUsersCountActionType
 	| ToggleIsFetchingActionType
+	| SetUserProfileDataActionType

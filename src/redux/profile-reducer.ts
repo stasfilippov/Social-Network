@@ -1,8 +1,10 @@
 import {UnionActionDispatchType} from './redux-store';
+import {userProfileDataType} from '../components/Profile/ProfileContainer';
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE_DATA = 'SET_USER_DATA_PROFILE_DATA'
 
 
 
@@ -19,7 +21,8 @@ let initialState = {
 		{ id: 3, postTitle: 'Yo i am very happy', likesCount: 10 },
 		{ id: 4, postTitle: 'Yo i', likesCount: 10 },
 	] as PostType[],
-	newPostText: ''
+	newPostText: '',
+	userProfileData: {} as userProfileDataType
 }
 
 export type InitialStateType = typeof initialState
@@ -44,19 +47,24 @@ export const profileReducer = (state: InitialStateType = initialState, action: U
 				...state,
 				newPostText: action.newText
 			}
+		case SET_USER_PROFILE_DATA:
+			return {...state, userProfileData: action.profileData}
 		default:
 			return state;
 	}
 }
 
-export type AddPostActionType = ReturnType<typeof addPostAC>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+export type AddPostActionType = ReturnType<typeof addPost>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
+export type SetUserProfileDataActionType = ReturnType<typeof setUserProfileData>
 
-export const addPostAC = () => {
+export const addPost = () => {
 	return {
 		type: ADD_POST
 	} as const
 }
-export const updateNewPostTextAC = (text: string) => {
+export const updateNewPostText = (text: string) => {
 	return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
 }
+
+export const setUserProfileData = (profileData: userProfileDataType) => ( {type: SET_USER_PROFILE_DATA, profileData} as const )

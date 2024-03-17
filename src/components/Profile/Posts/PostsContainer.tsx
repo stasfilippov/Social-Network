@@ -1,4 +1,4 @@
-import {addPostAC, PostType, updateNewPostTextAC} from '../../../redux/profile-reducer';
+import {addPost, PostType, updateNewPostText} from '../../../redux/profile-reducer';
 import {Posts} from './Posts';
 import {connect} from 'react-redux';
 import {AppRootState} from '../../../redux/redux-store';
@@ -22,17 +22,6 @@ type MapDispatchToPropsType = {
 	addPost: () => void
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-	return {
-		updateNewPostText: (text: string) => {
-			dispatch(updateNewPostTextAC(text))
-		},
-		addPost: () => {
-			dispatch(addPostAC())
-		}
-	}
-}
-
 export type PostsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
+export const PostsContainer = connect(mapStateToProps, {updateNewPostText, addPost})(Posts)
