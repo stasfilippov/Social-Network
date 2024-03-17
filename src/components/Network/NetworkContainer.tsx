@@ -2,11 +2,11 @@ import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {Dispatch} from 'redux';
 import {
-	setPageAC,
+	setPage,
 	setTotalUsersCount,
-	setUsersAC,
-	toggleFollowAC,
-	toggleIsFetchingAC,
+	setUsers,
+	toggleFollow,
+	toggleIsFetching,
 	userType
 } from '../../redux/network-reducer';
 import React from 'react';
@@ -34,7 +34,7 @@ class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 	}
 
 	getCurrentUsersOnChangePage = (currentPage: number) => {
-		this.props.setCurrentPage(currentPage)
+		this.props.setPage(currentPage)
 		this.props.toggleIsFetching(true)
 		axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users/?page=${currentPage}&count=${this.props.pageSize}`)
 			.then(res => {
@@ -51,7 +51,7 @@ class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 			getCurrentUsersOnChangePage={this.getCurrentUsersOnChangePage}
 			currentPage={this.props.currentPage}
 			totalUsersCount={this.props.totalUsersCount}
-			callBack={this.props.callBack}
+			callBack={this.props.toggleFollow}
 			pageSize={this.props.pageSize}
 		/></>
 	}
@@ -81,33 +81,40 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 }
 
 type MapDispatchToPropsType = {
-	callBack: (userId: number) => void
+	toggleFollow: (userId: number) => void
 	setUsers: (users: userType[]) => void
-	setCurrentPage: (currentPage: number) => void
+	setPage: (currentPage: number) => void
 	setTotalUsersCount: (totalUsersCount: number) => void
 	toggleIsFetching: (isFetching: boolean) => void
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-	return {
-		callBack: (userId: number) => {
-			dispatch(toggleFollowAC(userId))
-		},
-		setUsers: (users) => {
-			dispatch(setUsersAC(users))
-		},
-		setCurrentPage: (currentPage) => {
-			dispatch(setPageAC(currentPage))
-		},
-		setTotalUsersCount: (totalUsersCount) => {
-			dispatch(setTotalUsersCount(totalUsersCount))
-		},
-		toggleIsFetching: (isFetching) => {
-			dispatch(toggleIsFetchingAC(isFetching))
-		}
-	}
-}
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+// 	return {
+// 		toggleFollow: (userId: number) => {
+// 			dispatch(toggleFollow(userId))
+// 		},
+// 		setUsers: (users) => {
+// 			dispatch(setUsers(users))
+// 		},
+// 		setPage: (currentPage) => {
+// 			dispatch(setPage(currentPage))
+// 		},
+// 		setTotalUsersCount: (totalUsersCount) => {
+// 			dispatch(setTotalUsersCount(totalUsersCount))
+// 		},
+// 		toggleIsFetching: (isFetching) => {
+// 			dispatch(toggleIsFetching(isFetching))
+// 		}
+// 	}
+// }
 
 export type NetworkPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-export const NetworkContainer = connect(mapStateToProps, mapDispatchToProps)(NetworkAPIContainer)
+export const NetworkContainer = connect(mapStateToProps,
+	{
+		toggleFollow,
+		setUsers,
+		setPage,
+		setTotalUsersCount,
+		toggleIsFetching
+	})(NetworkAPIContainer)

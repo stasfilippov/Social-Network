@@ -69,22 +69,22 @@ export const networkReducer = (state: InitialStateType = initialState, action: U
 	}
 }
 
-export type ToggleFollowActionType = ReturnType<typeof toggleFollowAC>
-export type UsersActionType = ReturnType<typeof setUsersAC>
-export type SetPageActionType = ReturnType<typeof setPageAC>
+export type ToggleFollowActionType = ReturnType<typeof toggleFollow>
+export type UsersActionType = ReturnType<typeof setUsers>
+export type SetPageActionType = ReturnType<typeof setPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
-export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetchingAC>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 
-export const toggleFollowAC = (userId: number) => {
+export const toggleFollow = (userId: number) => {
 	return  {type: TOGGLE_FOLLOW, userId} as const
 }
-export const setUsersAC = (users: userType[]) => {
+export const setUsers = (users: userType[]) => {
 	return  {type: SET_USERS, users} as const
 }
-export const setPageAC = (currentPage: number) => {
+export const setPage = (currentPage: number) => {
 	return  {type: SET_CURRENT_PAGE, currentPage} as const
 }
 export const setTotalUsersCount = (totalUsersCount: number) => {
 	return  {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching} as const)
