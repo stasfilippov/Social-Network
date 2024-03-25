@@ -14,32 +14,25 @@ import axios from 'axios';
 import Users from './Users';
 import preloader from '../../images/preloader.svg'
 import Preloader from '../../common/proloader/Preloader';
+import {usersApi} from '../../api/usersApi';
 
-
-
-type ResponseType = {
-	items: userType []
-	totalCount: number
-	error: string
-}
 class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 	componentDidMount() {
 		this.props.toggleIsFetching(true)
-		axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true})
-			.then(res => {
+		usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
 				this.props.toggleIsFetching(false)
-				this.props.setUsers(res.data.items)
-				this.props.setTotalUsersCount(res.data.totalCount)
+				this.props.setUsers(data.items)
+				this.props.setTotalUsersCount(data.totalCount)
 			})
 	}
 
 	getCurrentUsersOnChangePage = (currentPage: number) => {
 		this.props.setPage(currentPage)
 		this.props.toggleIsFetching(true)
-		axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users/?page=${currentPage}&count=${this.props.pageSize}`, {withCredentials: true})
-			.then(res => {
+		usersApi.getUsers(currentPage, this.props.pageSize)
+			.then(data => {
 				this.props.toggleIsFetching(false)
-				this.props.setUsers(res.data.items)
+				this.props.setUsers(data.items)
 			})
 	}
 
