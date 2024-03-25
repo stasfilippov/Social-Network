@@ -12,7 +12,7 @@ import {userProfileDataType} from '../Profile/ProfileContainer';
 
 export class HeaderContainerApi extends React.Component<HeaderPropsType> {
 	componentDidMount() {
-		axios.get<ResponseAuthMe>('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
+		axios.get<ResponseType<AuthUserData>>('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
 			.then(res => {
 				if (res.data.resultCode === 0) {
 					this.props.setAuthDataUser(res.data)
@@ -39,10 +39,10 @@ export type AuthUserData = {
 	login: string
 }
 
-type ResponseAuthMe = {
+export type ResponseType<D = {}> = {
 	resultCode: number
 	messages: string[]
-	data: AuthUserData
+	data: D
 }
 type MapStateToPropsType = {
 	isAuth: boolean
