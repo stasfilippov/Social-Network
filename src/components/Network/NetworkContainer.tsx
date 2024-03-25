@@ -1,6 +1,5 @@
 import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
-import {Dispatch} from 'redux';
 import {
 	setPage,
 	setTotalUsersCount,
@@ -10,9 +9,7 @@ import {
 	userType
 } from '../../redux/network-reducer';
 import React from 'react';
-import axios from 'axios';
 import Users from './Users';
-import preloader from '../../images/preloader.svg'
 import Preloader from '../../common/proloader/Preloader';
 import {usersApi} from '../../api/usersApi';
 

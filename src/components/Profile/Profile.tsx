@@ -2,7 +2,7 @@ import React from 'react';
 import st from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsContainer} from './Posts/PostsContainer';
-import {userProfileDataType} from './ProfileContainer';
+import {userProfileDataType} from '../../api/profileApi';
 
 
 type ProfileTypeProps = {

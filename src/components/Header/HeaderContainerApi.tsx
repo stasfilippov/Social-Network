@@ -1,21 +1,16 @@
-import logo from '../../images/logo.png'
-import st from './Header.module.css'
-import {NavLink} from 'react-router-dom';
-import {ReactComponent} from '*.svg';
 import React from 'react';
 import Header from './Header';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {AuthDataUserType, InitialStateType, setAuthDataUser} from '../../redux/auth-reducer';
+import {AuthDataUserType, setAuthDataUser} from '../../redux/auth-reducer';
 import {AppRootState} from '../../redux/redux-store';
-import {userProfileDataType} from '../Profile/ProfileContainer';
+import {authApi} from '../../api/authApi';
 
 export class HeaderContainerApi extends React.Component<HeaderPropsType> {
 	componentDidMount() {
-		axios.get<ResponseType<AuthUserData>>('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-			.then(res => {
-				if (res.data.resultCode === 0) {
-					this.props.setAuthDataUser(res.data)
+			authApi.authMe().then(data => {
+				if (data.resultCode === 0) {
+					this.props.setAuthDataUser(data)
 				}
 			})
 	}
@@ -33,17 +28,7 @@ const mapStateToProps = (state:AppRootState): MapStateToPropsType=> {
 }
 export const HeaderContainer = connect(mapStateToProps, {setAuthDataUser})(HeaderContainerApi)
 
-export type AuthUserData = {
-	id: number
-	email: string
-	login: string
-}
 
-export type ResponseType<D = {}> = {
-	resultCode: number
-	messages: string[]
-	data: D
-}
 type MapStateToPropsType = {
 	isAuth: boolean
 	login: string | null

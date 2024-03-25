@@ -1,4 +1,4 @@
-import {AuthUserData} from '../components/Header/HeaderContainerApi';
+import {AuthUserData} from '../api/authApi';
 
 const SET_AUTH_DATA_USER = 'SET_AUTH_DATA_USER'
 

@@ -4,7 +4,7 @@ import {userType} from '../../redux/network-reducer';
 import UserAvatar from '../../images/user_avatar.png'
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
-import {ResponseType} from '../Header/HeaderContainerApi';
+import {followApi} from '../../api/followApi';
 
 type UserCardType = {
 	userData: userType
@@ -26,27 +26,15 @@ export const UserCard:React.FC<UserCardType> = ({callback, userData
 			{
 				userData.followed
 				 ? <button onClick={() => {
-					 axios.delete<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`, {
-						 withCredentials: true,
-						 headers: {
-							 'API-KEY': 'dd87c7b9-5ffa-413e-9bd0-5a7ab05790f6'
-						 }
-					 })
-						 .then(res => {
-							 if (res.data.resultCode === 0) {
+					 followApi.deleteFollow(userData.id).then(data => {
+							 if (data.resultCode === 0) {
 								 callback(userData.id)
 							 }
 						 })
 					}}>Unfollow</button>
 				: <button onClick={() => {
-						axios.post<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`, {}, {
-							withCredentials: true,
-							headers: {
-								'API-KEY': 'dd87c7b9-5ffa-413e-9bd0-5a7ab05790f6'
-							}
-						})
-							.then(res => {
-								if (res.data.resultCode === 0) {
+						followApi.postFollow(userData.id).then(data => {
+								if (data.resultCode === 0) {
 									callback(userData.id)
 								}
 							})

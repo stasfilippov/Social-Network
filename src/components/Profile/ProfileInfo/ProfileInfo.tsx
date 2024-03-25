@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from '../Profile.module.css';
-import {userProfileDataType} from '../ProfileContainer';
 import Preloader from '../../../common/proloader/Preloader';
+import {userProfileDataType} from '../../../api/profileApi';
 
 export const ProfileInfo = (props: {profile: userProfileDataType}) => {
 	if (!props.profile) {

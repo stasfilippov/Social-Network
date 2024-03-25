@@ -1,5 +1,5 @@
 import {UnionActionDispatchType} from './redux-store';
-import {userProfileDataType} from '../components/Profile/ProfileContainer';
+import {userProfileDataType} from '../api/profileApi';
 
 
 const ADD_POST = 'ADD-POST'

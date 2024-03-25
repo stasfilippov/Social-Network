@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {setUserProfileData} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {profileApi, userProfileDataType} from '../../api/profileApi';
 
 
 
@@ -15,9 +16,8 @@ export class ProfileContainerApi extends React.Component<PropsType>{
 		if (!userId) {
 			userId = '2'
 		}
-		axios.get<userProfileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId)
-			.then(res => {
-				this.props.setUserProfileData(res.data)
+		profileApi.getUserProfileData(userId).then(data => {
+				this.props.setUserProfileData(data)
 			})
 	}
 
@@ -51,27 +51,5 @@ export type PathParamsType = {
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 
-export type userProfileDataType = {
-	aboutMe: string;
-	contacts: Contacts;
-	lookingForAJob: boolean;
-	lookingForAJobDescription: string;
-	fullName: string;
-	userId: number;
-	photos: Photos;
-}
-export type Contacts = {
-	facebook: string
-	website: string
-	vk: string
-	twitter: string
-	instagram: string
-	youtube: string
-	github: string
-	mainLink: string
-}
-export type Photos = {
-	small: string
-	large: string
-}
+
 
