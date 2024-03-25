@@ -19,14 +19,30 @@
 	transform: translateX(-50%) translateY(-50%);
 }
 
-.accountDropdown {
+.accountContainer {
 	padding: 10px 19px;
 	display: flex;
+	gap: 10px;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 20px;
-	background-color: #f5f5f5;
+}
+.accountSignBtn {
+	display: flex;
+	align-items: center;
+	border-radius: 15px;
+	padding: 5px 20px;
+	height: 44px;
+	background-color: transparent;
+	border: 1px solid #0a66c2;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	color: #0a66c2;
+	text-decoration: none;
+}
+.accountSignBtn:hover {
+	text-decoration: underline;
 }
 
 .searchForm {
@@ -49,4 +65,21 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+}
+.accountImage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	background-color: #9696fa;
+}
+.accountName {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
 }

@@ -6,6 +6,8 @@ import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {NavbarContainer} from './components/Navbar/NavbarContainer';
 import {NetworkContainer} from './components/Network/NetworkContainer';
 import {ProfileContainer} from './components/Profile/ProfileContainer';
+import {ProfileInfo} from './components/Profile/ProfileInfo/ProfileInfo';
+import {HeaderContainer, HeaderContainerApi} from './components/Header/HeaderContainerApi';
 
 
 
@@ -13,11 +15,11 @@ const App: React.FC = props => {
 	return (
 		<BrowserRouter>
 			<div className={'app-wrapper'}>
-				<Header />
+				<HeaderContainer/>
 				<NavbarContainer/>
 				<div className={'app-wrapper-content'}>
 					<Route
-						path={'/profile'}
+						path={'/profile/:userId?'}
 						render={() => <ProfileContainer/>}
 					/>
 					<Route

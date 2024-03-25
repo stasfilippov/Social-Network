@@ -18,7 +18,7 @@ export const UserCard:React.FC<UserCardType> = ({callback, userData
 
 	return (
 		<div className={styles.userCard_container}>
-			<NavLink to={'/profile'+ userData.id}>
+			<NavLink to={'/profile/'+ userData.id}>
 				<img src={userData.photos.small !== null
 					? userData.photos.small
 					: UserAvatar} alt="user_avatar" className={styles.userCard_image}

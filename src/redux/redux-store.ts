@@ -14,13 +14,15 @@ import {
 	ToggleFollowActionType, ToggleIsFetchingActionType,
 	UsersActionType
 } from './network-reducer';
+import {authReducer} from './auth-reducer';
 
 
 const rootReducer = combineReducers({
 	profile: profileReducer,
 	dialogs: dialogsReducer,
 	sidebar: sidebarReducer,
-	network: networkReducer
+	network: networkReducer,
+	auth: authReducer
 })
 
 export type AppRootState = ReturnType<typeof rootReducer>
@@ -37,3 +39,4 @@ export type UnionActionDispatchType = AddPostActionType
 	| SetTotalUsersCountActionType
 	| ToggleIsFetchingActionType
 	| SetUserProfileDataActionType
+

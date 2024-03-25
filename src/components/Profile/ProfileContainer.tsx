@@ -4,13 +4,18 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {setUserProfileData} from '../../redux/profile-reducer';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 
 
-export class ProfileContainerApi extends React.Component<ProfileContainerPropsType>{
+export class ProfileContainerApi extends React.Component<PropsType>{
 
 	componentDidMount() {
-		axios.get<userProfileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/13`)
+		let userId = this.props.match.params.userId
+		if (!userId) {
+			userId = '2'
+		}
+		axios.get<userProfileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId)
 			.then(res => {
 				this.props.setUserProfileData(res.data)
 			})
@@ -26,7 +31,9 @@ let mapStateToProps = (state: AppRootState ): mapStateToPropsType => {
 		profile: state.profile.userProfileData
 	}
 }
-export const ProfileContainer = connect(mapStateToProps, {setUserProfileData})(ProfileContainerApi)
+
+let withUrlDataContainerComponent = withRouter(ProfileContainerApi)
+export const ProfileContainer = connect(mapStateToProps, {setUserProfileData})(withUrlDataContainerComponent)
 
 
 type mapStateToPropsType = {
@@ -38,27 +45,33 @@ type mapDispatchToProps = {
 
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 
+export type PathParamsType = {
+	userId: string
+}
+
+type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
+
 export type userProfileDataType = {
-	aboutMe: string | null;
+	aboutMe: string;
 	contacts: Contacts;
 	lookingForAJob: boolean;
-	lookingForAJobDescription: string | null;
+	lookingForAJobDescription: string;
 	fullName: string;
 	userId: number;
 	photos: Photos;
 }
 export type Contacts = {
-	facebook: string | null;
-	website: string | null;
-	vk: string | null;
-	twitter: string | null;
-	instagram: string | null;
-	youtube: string | null;
-	github: string | null;
-	mainLink: string | null;
+	facebook: string
+	website: string
+	vk: string
+	twitter: string
+	instagram: string
+	youtube: string
+	github: string
+	mainLink: string
 }
 export type Photos = {
-	small: string | null;
-	large: string | null
+	small: string
+	large: string
 }
 

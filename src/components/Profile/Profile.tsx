@@ -2,7 +2,7 @@ import React from 'react';
 import st from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsContainer} from './Posts/PostsContainer';
-import {ProfileContainerPropsType, userProfileDataType} from './ProfileContainer';
+import {userProfileDataType} from './ProfileContainer';
 
 
 type ProfileTypeProps = {
@@ -12,8 +12,13 @@ export const Profile:React.FC<ProfileTypeProps> = ( {profile} ) => {
 
 	return (
 		<div className={st.profilePageWrapper}>
-			<ProfileInfo profile={profile}/>
-			<PostsContainer/>
+			<div className={st.profileContainer}>
+				<ProfileInfo profile={profile}/>
+				<PostsContainer/>
+			</div>
+			<div className={st.messagesContainer}>
+				messages
+			</div>
 		</div>
 	);
 };
