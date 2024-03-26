@@ -11,7 +11,7 @@ import {
 	networkReducer,
 	SetPageActionType,
 	SetTotalUsersCountActionType,
-	ToggleFollowActionType, ToggleIsFetchingActionType,
+	ToggleFollowActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
 	UsersActionType
 } from './network-reducer';
 import {authReducer} from './auth-reducer';
@@ -39,4 +39,5 @@ export type UnionActionDispatchType = AddPostActionType
 	| SetTotalUsersCountActionType
 	| ToggleIsFetchingActionType
 	| SetUserProfileDataActionType
+| ToggleIsFollowingProgressActionType
 
