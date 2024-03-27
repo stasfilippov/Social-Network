@@ -1,4 +1,6 @@
 import {UnionActionDispatchType} from './redux-store';
+import {Dispatch} from 'redux';
+import {usersApi} from '../api/usersApi';
 
 
 const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
@@ -101,4 +103,14 @@ export const toggleIsFetching = (isFetching: boolean) => ({ type: TOGGLE_IS_FETC
 
 export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => {
 	return { type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId } as const
+}
+
+//thunks
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+	dispatch(toggleIsFetching(true))
+	usersApi.getUsers(currentPage, pageSize).then(data => {
+		dispatch(toggleIsFetching(false))
+		dispatch(setUsers(data.items))
+		dispatch(setTotalUsersCount(data.totalCount))
+	})
 }

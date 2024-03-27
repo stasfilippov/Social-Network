@@ -1,9 +1,9 @@
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {
 	setPage,
 	setTotalUsersCount,
-	setUsers,
+	setUsers, getUsers,
 	toggleFollow,
 	toggleIsFetching, toggleIsFollowingProgress,
 	userType
@@ -12,25 +12,16 @@ import React from 'react';
 import Users from './Users';
 import Preloader from '../../common/proloader/Preloader';
 import {usersApi} from '../../api/usersApi';
+import {Dispatch} from 'redux';
 
 class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 	componentDidMount() {
-		this.props.toggleIsFetching(true)
-		usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-				this.props.toggleIsFetching(false)
-				this.props.setUsers(data.items)
-				this.props.setTotalUsersCount(data.totalCount)
-			})
+		this.props.getUsers(this.props.currentPage, this.props.currentPage)
 	}
 
 	getCurrentUsersOnChangePage = (currentPage: number) => {
 		this.props.setPage(currentPage)
-		this.props.toggleIsFetching(true)
-		usersApi.getUsers(currentPage, this.props.pageSize)
-			.then(data => {
-				this.props.toggleIsFetching(false)
-				this.props.setUsers(data.items)
-			})
+		this.props.getUsers(currentPage, this.props.currentPage)
 	}
 
 	render() {
@@ -76,10 +67,8 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 
 type MapDispatchToPropsType = {
 	toggleFollow: (userId: number) => void
-	setUsers: (users: userType[]) => void
 	setPage: (currentPage: number) => void
 	setTotalUsersCount: (totalUsersCount: number) => void
-	toggleIsFetching: (isFetching: boolean) => void
 	toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
@@ -88,9 +77,7 @@ export type NetworkPropsType = MapStateToPropsType & MapDispatchToPropsType
 export const NetworkContainer = connect(mapStateToProps,
 	{
 		toggleFollow,
-		setUsers,
 		setPage,
-		setTotalUsersCount,
-		toggleIsFetching,
-		toggleIsFollowingProgress
+		toggleIsFollowingProgress,
+		getUsers
 	})(NetworkAPIContainer)
