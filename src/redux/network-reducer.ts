@@ -1,10 +1,14 @@
 import {UnionActionDispatchType} from './redux-store';
+import {Dispatch} from 'redux';
+import {usersApi} from '../api/usersApi';
 
 
 const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 
 export type userType = {
@@ -24,13 +28,17 @@ export type InitialStateType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
+	isFetching: boolean
+	usersFollowingInProgress: number[]
 }
 
 let initialState = {
 	users: [],
 	pageSize: 10,
 	totalUsersCount: 0,
-	currentPage: 2
+	currentPage: 1,
+	isFetching: false,
+	usersFollowingInProgress: []
 }
 
 export const networkReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType): InitialStateType => {
@@ -58,26 +66,51 @@ export const networkReducer = (state: InitialStateType = initialState, action: U
 				totalUsersCount: action.totalUsersCount
 			}
 		}
+		case TOGGLE_IS_FETCHING:
+			return {...state, isFetching: action.isFetching}
+		case TOGGLE_IS_FOLLOWING_PROGRESS:
+			return {...state,
+				usersFollowingInProgress: action.isFetching
+					? [...state.usersFollowingInProgress, action.userId]
+					: state.usersFollowingInProgress.filter(id => id !== action.userId)
+				}
 
 		default:
 			return state
 	}
 }
 
-export type ToggleFollowActionType = ReturnType<typeof toggleFollowAC>
-export type UsersActionType = ReturnType<typeof setUsersAC>
-export type SetPageActionType = ReturnType<typeof setPageAC>
+export type ToggleFollowActionType = ReturnType<typeof toggleFollow>
+export type UsersActionType = ReturnType<typeof setUsers>
+export type SetPageActionType = ReturnType<typeof setPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
+export type ToggleIsFollowingProgressActionType = ReturnType<typeof toggleIsFollowingProgress>
 
-export const toggleFollowAC = (userId: number) => {
+export const toggleFollow = (userId: number) => {
 	return  {type: TOGGLE_FOLLOW, userId} as const
 }
-export const setUsersAC = (users: userType[]) => {
+export const setUsers = (users: userType[]) => {
 	return  {type: SET_USERS, users} as const
 }
-export const setPageAC = (currentPage: number) => {
+export const setPage = (currentPage: number) => {
 	return  {type: SET_CURRENT_PAGE, currentPage} as const
 }
 export const setTotalUsersCount = (totalUsersCount: number) => {
 	return  {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
+}
+export const toggleIsFetching = (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching} as const)
+
+export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => {
+	return { type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId } as const
+}
+
+//thunks
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+	dispatch(toggleIsFetching(true))
+	usersApi.getUsers(currentPage, pageSize).then(data => {
+		dispatch(toggleIsFetching(false))
+		dispatch(setUsers(data.items))
+		dispatch(setTotalUsersCount(data.totalCount))
+	})
 }

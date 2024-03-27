@@ -1,15 +1,25 @@
 import React from 'react';
 import classes from '../Profile.module.css';
+import Preloader from '../../../common/proloader/Preloader';
+import {userProfileDataType} from '../../../api/profileApi';
 
-export const ProfileInfo = () => {
+export const ProfileInfo = (props: {profile: userProfileDataType}) => {
+	if (!props.profile) {
+		return <Preloader/>
+	}
 	return (
-		<div>
-			<div className={classes.imgBox}>
-				<img className={classes.img}
-				     src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-				     alt="#"/>
+		<div className={classes.profileInfoContainer}>
+			<div className={classes.profileImagesContainer}>
+				<img className={classes.profileSmallImage} src={props.profile.photos?.small} alt="profileSmallImage"/>
 			</div>
-			<div>ava + desc</div>
+			<div className={classes.profileDescription}>
+				<h3 className={classes.profileName}>{props.profile.fullName}</h3>
+				<p className={classes.profileAboutMe}>{props.profile.aboutMe ? props.profile.aboutMe : 'Not description'}</p>
+				<div className={classes.profileContactsContainer}>{props.profile.contacts?.github}</div>
+				<div className={classes.profileStatus} style={ {backgroundColor: props.profile.lookingForAJob? 'green': 'red'} }>
+					{props.profile.lookingForAJob? 'Open': 'Closed'} to work
+				</div>
+			</div>
 			<div>new post</div>
 		</div>
 	);

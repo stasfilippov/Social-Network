@@ -10,18 +10,21 @@ type UsersType = {
 	getCurrentUsersOnChangePage: (p: number) => void
 	currentPage: number
 	usersData: userType[]
-	callBack: (userId: number) => void
+	usersFollowingInProgress: number[]
+	toggleFollowCallback: (userId: number) => void
+	toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+
 }
 const Users: React.FC<UsersType> = ({
-	                                    totalUsersCount,
-	                                    pageSize,
 	                                    getCurrentUsersOnChangePage,
 	                                    currentPage,
 	                                    usersData,
-	                                    callBack
+	                                    usersFollowingInProgress,
+	                                    toggleFollowCallback,
+	                                    toggleIsFollowingProgress
                                     }) => {
 
-	let pagesCount = Math.ceil(totalUsersCount / pageSize)
+	// let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
 	let pages = []
 
@@ -52,7 +55,9 @@ const Users: React.FC<UsersType> = ({
 					<UserCard
 						key={u.id}
 						userData={u}
-						callback={callBack}
+						callback={toggleFollowCallback}
+						usersFollowingInProgress={usersFollowingInProgress}
+						isFollowingProgressCallback={toggleIsFollowingProgress}
 					/>)}
 			</div>
 		</div>

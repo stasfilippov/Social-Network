@@ -9,9 +9,6 @@ export const Posts:React.FC<PostsPropsType> = (props) => {
 
 	const mappingPosts = props.data.map(p => <Post key={p.id} id={p.id} postTitle={p.postTitle} likesCount={p.likesCount}/>)
 
-
-
-
 	const onClickHandler = () => {
 		props.addPost()
 
@@ -19,7 +16,6 @@ export const Posts:React.FC<PostsPropsType> = (props) => {
 	let onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
 		props.updateNewPostText(event.currentTarget.value)
 	}
-
 
 	return (
 		<>
