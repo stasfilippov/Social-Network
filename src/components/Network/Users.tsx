@@ -2,26 +2,26 @@ import React from 'react';
 import styles from './Network.module.css';
 import {UserCard} from './UserCard';
 import {userType} from '../../redux/network-reducer';
+import {NetworkPropsType} from './NetworkContainer';
 
 
-type UsersType = {
-	totalUsersCount: number
-	pageSize: number
-	getCurrentUsersOnChangePage: (p: number) => void
-	currentPage: number
-	usersData: userType[]
-	usersFollowingInProgress: number[]
-	toggleFollowCallback: (userId: number) => void
-	toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-
-}
-const Users: React.FC<UsersType> = ({
-	                                    getCurrentUsersOnChangePage,
+// type UsersType = {
+// 	totalUsersCount: number
+// 	pageSize: number
+// 	getCurrentUsersOnChangePage: (p: number) => void
+// 	currentPage: number
+// 	usersData: userType[]
+// 	usersFollowingInProgress: number[]
+// 	unfollowSucceded: (userId: number) => void
+// 	followSucceded: (userId: number) => void
+//
+// }
+const Users: React.FC<NetworkPropsType> = ({
+										setPage,
 	                                    currentPage,
 	                                    usersData,
 	                                    usersFollowingInProgress,
-	                                    toggleFollowCallback,
-	                                    toggleIsFollowingProgress
+	                                    unfollowSucceded, followSucceded
                                     }) => {
 
 	// let pagesCount = Math.ceil(totalUsersCount / pageSize)
@@ -39,7 +39,7 @@ const Users: React.FC<UsersType> = ({
 				{pages.map((p, i) => {
 					return (
 						<span
-							onClick={() => getCurrentUsersOnChangePage(p)}
+							onClick={() => setPage(p)}
 							className={currentPage === p
 							      ? styles.selectedPage
 							      : styles.page}
@@ -55,9 +55,9 @@ const Users: React.FC<UsersType> = ({
 					<UserCard
 						key={u.id}
 						userData={u}
-						callback={toggleFollowCallback}
 						usersFollowingInProgress={usersFollowingInProgress}
-						isFollowingProgressCallback={toggleIsFollowingProgress}
+						unfollowSucceded={unfollowSucceded}
+						followSucceded={followSucceded}
 					/>)}
 			</div>
 		</div>

@@ -2,6 +2,7 @@ import {AppThunk, UnionActionDispatchType} from './redux-store';
 import {Dispatch} from 'redux';
 import {usersApi} from '../api/usersApi';
 import {DiologsUnionActionDispatchType} from './dialogs-reducer';
+import {followApi} from '../api/followApi';
 
 
 const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
@@ -112,6 +113,27 @@ export const getUsers = (currentPage: number, pageSize: number): AppThunk => (di
 	})
 }
 
+export const unfollowSucceded = (userId: number): AppThunk => (dispatch: Dispatch) => {
+	dispatch(toggleIsFollowingProgress(true, userId))
+
+	followApi.deleteFollow(userId).then(data => {
+		if (data.resultCode === 0) {
+			dispatch(toggleFollow(userId))
+		}
+		dispatch(toggleIsFollowingProgress(false, userId))
+	})
+}
+export const followSucceded = (userId: number): AppThunk => (dispatch: Dispatch) => {
+	dispatch(toggleIsFollowingProgress(true, userId))
+
+	followApi.postFollow(userId).then(data => {
+		if (data.resultCode === 0) {
+			dispatch(toggleFollow(userId))
+		}
+		dispatch(toggleIsFollowingProgress(false, userId))
+	})
+}
+
 
 export type ToggleFollowActionType = ReturnType<typeof toggleFollow>
 export type UsersActionType = ReturnType<typeof setUsers>
@@ -127,3 +149,6 @@ export type NetworkUnionActionDispatchType =
 	| SetTotalUsersCountActionType
 	| ToggleIsFetchingActionType
 	| ToggleIsFollowingProgressActionType
+
+//thunks
+

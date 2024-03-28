@@ -5,15 +5,13 @@ import {
 	getUsers,
 	toggleFollow,
 	toggleIsFollowingProgress,
-	userType
+	userType, unfollowSucceded, followSucceded
 } from '../../redux/network-reducer';
 import React from 'react';
 import Users from './Users';
 import Preloader from '../../common/proloader/Preloader';
-import {usersApi} from '../../api/usersApi';
-import {Dispatch} from 'redux';
 
-class NetworkAPIContainer extends React.Component<NetworkPropsType>{
+class NetworkAPIContainer extends React.Component<NetworkPropsType> {
 	componentDidMount() {
 		this.props.getUsers(this.props.currentPage, this.props.pageSize)
 	}
@@ -25,23 +23,13 @@ class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 
 	render() {
 		return <>
-			{this.props.isFetching? <Preloader/> : null}
-			<Users
-				usersFollowingInProgress = {this.props.usersFollowingInProgress}
-			usersData={this.props.usersData}
-			getCurrentUsersOnChangePage={this.getCurrentUsersOnChangePage}
-			currentPage={this.props.currentPage}
-			totalUsersCount={this.props.totalUsersCount}
-			toggleFollowCallback={this.props.toggleFollow}
-			toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
-			pageSize={this.props.pageSize}
-		/></>
+			{this.props.isFetching ? <Preloader/> : null}
+			<Users {...this.props} onPageChanged={getCurrentUsersOnChangePage}/></>
 	}
 
 }
 
 export default NetworkAPIContainer
-
 
 
 type MapStateToPropsType = {
@@ -65,18 +53,19 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 }
 
 type MapDispatchToPropsType = {
-	toggleFollow: (userId: number) => void
 	setPage: (currentPage: number) => void
-	toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
 	getUsers: (currentPage: number, pageSize: number) => void
+	unfollowSucceded: (userId: number) => void
+	followSucceded: (userId: number) => void
 }
 
 export type NetworkPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 export const NetworkContainer = connect(mapStateToProps,
 	{
-		toggleFollow,
 		setPage,
-		toggleIsFollowingProgress,
+		unfollowSucceded,
+		followSucceded,
 		getUsers
-	})(NetworkAPIContainer)
+	})
+(NetworkAPIContainer)
