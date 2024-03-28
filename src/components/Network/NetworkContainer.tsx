@@ -2,10 +2,9 @@ import {connect, useDispatch} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
 import {
 	setPage,
-	setTotalUsersCount,
-	setUsers, getUsers,
+	getUsers,
 	toggleFollow,
-	toggleIsFetching, toggleIsFollowingProgress,
+	toggleIsFollowingProgress,
 	userType
 } from '../../redux/network-reducer';
 import React from 'react';
@@ -16,12 +15,12 @@ import {Dispatch} from 'redux';
 
 class NetworkAPIContainer extends React.Component<NetworkPropsType>{
 	componentDidMount() {
-		this.props.getUsers(this.props.currentPage, this.props.currentPage)
+		this.props.getUsers(this.props.currentPage, this.props.pageSize)
 	}
 
 	getCurrentUsersOnChangePage = (currentPage: number) => {
 		this.props.setPage(currentPage)
-		this.props.getUsers(currentPage, this.props.currentPage)
+		this.props.getUsers(currentPage, this.props.pageSize)
 	}
 
 	render() {
@@ -68,8 +67,8 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 type MapDispatchToPropsType = {
 	toggleFollow: (userId: number) => void
 	setPage: (currentPage: number) => void
-	setTotalUsersCount: (totalUsersCount: number) => void
 	toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+	getUsers: (currentPage: number, pageSize: number) => void
 }
 
 export type NetworkPropsType = MapStateToPropsType & MapDispatchToPropsType

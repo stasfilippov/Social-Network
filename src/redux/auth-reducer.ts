@@ -15,7 +15,7 @@ export type InitialStateType = {
 	login: string | null
 	isAuth: boolean
 }
-export const authReducer = (state: InitialStateType = initialState, action: UnionActionDispatchType):InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthUnionActionDispatchType):InitialStateType => {
 	switch (action.type) {
 		case 'SET_AUTH_DATA_USER':
 			return {
@@ -36,5 +36,5 @@ type SetAuthDataUser = ReturnType<typeof setAuthDataUser>
 export type AuthDataUserType = {
 	data: AuthUserData
 }
-export type UnionActionDispatchType = SetAuthDataUser
+export type AuthUnionActionDispatchType = SetAuthDataUser
 
