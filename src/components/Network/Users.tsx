@@ -16,8 +16,16 @@ import {NetworkPropsType} from './NetworkContainer';
 // 	followSucceded: (userId: number) => void
 //
 // }
-const Users: React.FC<NetworkPropsType> = ({
-										setPage,
+
+
+type UsersType = NetworkPropsType & {
+	onChangePage: (currentPage: number) => void
+};
+
+// ExtendedType will now have prop1, prop2, prop3, and prop4 properties
+
+const Users: React.FC<UsersType> = ({
+	                                    onChangePage,
 	                                    currentPage,
 	                                    usersData,
 	                                    usersFollowingInProgress,
@@ -39,7 +47,7 @@ const Users: React.FC<NetworkPropsType> = ({
 				{pages.map((p, i) => {
 					return (
 						<span
-							onClick={() => setPage(p)}
+							onClick={() => onChangePage(p)}
 							className={currentPage === p
 							      ? styles.selectedPage
 							      : styles.page}

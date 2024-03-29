@@ -24,7 +24,11 @@ class NetworkAPIContainer extends React.Component<NetworkPropsType> {
 	render() {
 		return <>
 			{this.props.isFetching ? <Preloader/> : null}
-			<Users {...this.props} onPageChanged={getCurrentUsersOnChangePage}/></>
+			<Users
+				onChangePage={this.getCurrentUsersOnChangePage}
+				{...this.props}
+			/>
+		</>
 	}
 
 }
