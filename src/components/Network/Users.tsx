@@ -1,21 +1,9 @@
 import React from 'react';
 import styles from './Network.module.css';
 import {UserCard} from './UserCard';
-import {userType} from '../../redux/network-reducer';
 import {NetworkPropsType} from './NetworkContainer';
 
 
-// type UsersType = {
-// 	totalUsersCount: number
-// 	pageSize: number
-// 	getCurrentUsersOnChangePage: (p: number) => void
-// 	currentPage: number
-// 	usersData: userType[]
-// 	usersFollowingInProgress: number[]
-// 	unfollowSucceded: (userId: number) => void
-// 	followSucceded: (userId: number) => void
-//
-// }
 
 
 type UsersType = NetworkPropsType & {

@@ -150,5 +150,5 @@ export type NetworkUnionActionDispatchType =
 	| ToggleIsFetchingActionType
 	| ToggleIsFollowingProgressActionType
 
-//thunks
+
 

@@ -1,4 +1,6 @@
-import {AuthUserData} from '../api/authApi';
+import {authApi, AuthUserData} from '../api/authApi';
+import {Dispatch} from 'redux';
+import {AppDispatch, AppThunk} from './redux-store';
 
 const SET_AUTH_DATA_USER = 'SET_AUTH_DATA_USER'
 
@@ -30,6 +32,16 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 }
 
 export const setAuthDataUser = (data: AuthDataUserType) => ({ type: SET_AUTH_DATA_USER, data } as const)
+
+
+//tunks
+export const setAuth = ():AppThunk => (dispatch: AppDispatch) => {
+	authApi.authMe().then(data => {
+		if (data.resultCode === 0) {
+			dispatch(setAuthDataUser(data))
+		}
+	})
+}
 
 type SetAuthDataUser = ReturnType<typeof setAuthDataUser>
 

@@ -3,7 +3,7 @@ import {Profile} from './Profile';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
-import {setUserProfileData} from '../../redux/profile-reducer';
+import {getUserProfileData, setUserProfileData} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {profileApi, userProfileDataType} from '../../api/profileApi';
 
@@ -16,9 +16,7 @@ export class ProfileContainerApi extends React.Component<PropsType>{
 		if (!userId) {
 			userId = '2'
 		}
-		profileApi.getUserProfileData(userId).then(data => {
-				this.props.setUserProfileData(data)
-			})
+		this.props.getUserProfileData(userId)
 	}
 
 	render () {
@@ -33,14 +31,14 @@ let mapStateToProps = (state: AppRootState ): mapStateToPropsType => {
 }
 
 let withUrlDataContainerComponent = withRouter(ProfileContainerApi)
-export const ProfileContainer = connect(mapStateToProps, {setUserProfileData})(withUrlDataContainerComponent)
+export const ProfileContainer = connect(mapStateToProps, {getUserProfileData})(withUrlDataContainerComponent)
 
 
 type mapStateToPropsType = {
 	profile: userProfileDataType
 }
 type mapDispatchToProps = {
-	setUserProfileData: (profileData: userProfileDataType) => void
+	getUserProfileData: (userId: string) => void
 }
 
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
