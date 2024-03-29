@@ -1,4 +1,5 @@
 import {UnionActionDispatchType} from './redux-store';
+import {AuthUnionActionDispatchType} from './auth-reducer';
 
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
@@ -64,3 +65,5 @@ export const updateNewMessageBodyAC = (newMessageBody: string) => {
 export const sendMessageAC = () => {
 	return { type: SEND_MESSAGE } as const
 }
+
+export type DiologsUnionActionDispatchType = UpdateNewMessageBodyActionType | SendMessageActionType

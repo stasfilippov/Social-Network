@@ -1,5 +1,6 @@
-import {UnionActionDispatchType} from './redux-store';
-import {userProfileDataType} from '../api/profileApi';
+import {AppDispatch, AppThunk, UnionActionDispatchType} from './redux-store';
+import {profileApi, userProfileDataType} from '../api/profileApi';
+import {NetworkUnionActionDispatchType} from './network-reducer';
 
 
 const ADD_POST = 'ADD-POST'
@@ -54,9 +55,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: U
 	}
 }
 
-export type AddPostActionType = ReturnType<typeof addPost>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
-export type SetUserProfileDataActionType = ReturnType<typeof setUserProfileData>
+
 
 export const addPost = () => {
 	return {
@@ -68,3 +67,19 @@ export const updateNewPostText = (text: string) => {
 }
 
 export const setUserProfileData = (profileData: userProfileDataType) => ( {type: SET_USER_PROFILE_DATA, profileData} as const )
+
+//thunks
+
+export const getUserProfileData = (userId: string): AppThunk => (dispatch: AppDispatch) => {
+	profileApi.getUserProfileData(userId).then(data => {
+		dispatch(setUserProfileData(data))
+	})
+}
+
+export type AddPostActionType = ReturnType<typeof addPost>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
+export type SetUserProfileDataActionType = ReturnType<typeof setUserProfileData>
+
+export type ProfileUnionActionDispatchType = AddPostActionType
+	| UpdateNewPostTextActionType
+	| SetUserProfileDataActionType

@@ -2,20 +2,25 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {sidebarReducer} from './sidebar-reducer';
 import {
 	AddPostActionType,
-	profileReducer,
+	profileReducer, ProfileUnionActionDispatchType,
 	SetUserProfileDataActionType,
 	UpdateNewPostTextActionType
 } from './profile-reducer';
-import {dialogsReducer, SendMessageActionType, UpdateNewMessageBodyActionType} from './dialogs-reducer';
 import {
-	networkReducer,
+	dialogsReducer,
+	DiologsUnionActionDispatchType,
+	SendMessageActionType,
+	UpdateNewMessageBodyActionType
+} from './dialogs-reducer';
+import {
+	networkReducer, NetworkUnionActionDispatchType,
 	SetPageActionType,
 	SetTotalUsersCountActionType,
 	ToggleFollowActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
 	UsersActionType
 } from './network-reducer';
-import {authReducer} from './auth-reducer';
-import thunk from 'redux-thunk';
+import {authReducer, AuthUnionActionDispatchType} from './auth-reducer';
+import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 
 
 const rootReducer = combineReducers({
@@ -27,18 +32,14 @@ const rootReducer = combineReducers({
 })
 
 export type AppRootState = ReturnType<typeof rootReducer>
+export type AppDispatch = ThunkDispatch<AppRootState, unknown, UnionActionDispatchType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, UnionActionDispatchType>
 
 export let store = createStore(rootReducer, applyMiddleware(thunk))
 
-export type UnionActionDispatchType = AddPostActionType
-	| UpdateNewPostTextActionType
-	| UpdateNewMessageBodyActionType
-	| SendMessageActionType
-	| ToggleFollowActionType
-	| UsersActionType
-	| SetPageActionType
-	| SetTotalUsersCountActionType
-	| ToggleIsFetchingActionType
-	| SetUserProfileDataActionType
-| ToggleIsFollowingProgressActionType
+export type UnionActionDispatchType = ActionsType
 
+type ActionsType = AuthUnionActionDispatchType
+	| DiologsUnionActionDispatchType
+	| NetworkUnionActionDispatchType
+	| ProfileUnionActionDispatchType
