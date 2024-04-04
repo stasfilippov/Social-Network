@@ -1,23 +1,13 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {sidebarReducer} from './sidebar-reducer';
 import {
-	AddPostActionType,
 	profileReducer, ProfileUnionActionDispatchType,
-	SetUserProfileDataActionType,
-	UpdateNewPostTextActionType
 } from './profile-reducer';
 import {
-	dialogsReducer,
-	DiologsUnionActionDispatchType,
-	SendMessageActionType,
-	UpdateNewMessageBodyActionType
+	dialogsReducer, DiologsUnionActionDispatchType,
 } from './dialogs-reducer';
 import {
-	networkReducer, NetworkUnionActionDispatchType,
-	SetPageActionType,
-	SetTotalUsersCountActionType,
-	ToggleFollowActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
-	UsersActionType
+	networkReducer, NetworkUnionActionDispatchType
 } from './network-reducer';
 import {authReducer, AuthUnionActionDispatchType} from './auth-reducer';
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';

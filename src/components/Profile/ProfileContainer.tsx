@@ -1,11 +1,10 @@
 import React from 'react';
 import {Profile} from './Profile';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {AppRootState} from '../../redux/redux-store';
-import {getUserProfileData, setUserProfileData} from '../../redux/profile-reducer';
+import {getUserProfileData} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {profileApi, userProfileDataType} from '../../api/profileApi';
+import {userProfileDataType} from '../../api/profileApi';
 
 
 
