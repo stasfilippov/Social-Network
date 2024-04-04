@@ -1,10 +1,8 @@
 import React from 'react';
 import Header from './Header';
-import axios from 'axios';
 import {connect} from 'react-redux';
-import {AuthDataUserType, setAuth, setAuthDataUser} from '../../redux/auth-reducer';
+import {setAuth} from '../../redux/auth-reducer';
 import {AppRootState} from '../../redux/redux-store';
-import {authApi} from '../../api/authApi';
 
 export class HeaderContainerApi extends React.Component<HeaderPropsType> {
 	componentDidMount() {
