@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import {NavLink, Redirect} from 'react-router-dom'
 
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
