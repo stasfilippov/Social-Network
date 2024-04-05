@@ -25,10 +25,6 @@ export const Dialogs:React.FC<DialogsPropsType> = (props) => {
 		props.onClickCallback()
 	}
 
-	if(!props.isAuth) {
-		return <Redirect to={'/login'}/>
-	}
-
 	return (
 		<div className={classes.dialogs_content}>
 			<div className={classes.dialogs}>

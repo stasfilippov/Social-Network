@@ -1,13 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import './App.css'
-import Header from './components/Header/Header'
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {NavbarContainer} from './components/Navbar/NavbarContainer';
 import {NetworkContainer} from './components/Network/NetworkContainer';
 import {ProfileContainer} from './components/Profile/ProfileContainer';
-import {ProfileInfo} from './components/Profile/ProfileInfo/ProfileInfo';
-import {HeaderContainer, HeaderContainerApi} from './components/Header/HeaderContainerApi';
+import {HeaderContainer} from './components/Header/HeaderContainerApi';
 import {Login} from './components/Login/Login';
 
 
