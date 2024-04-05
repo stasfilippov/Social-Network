@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import {NavLink, Redirect} from 'react-router-dom'
 
 import { DialogItem } from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
@@ -23,6 +23,10 @@ export const Dialogs:React.FC<DialogsPropsType> = (props) => {
 
 	const onClickHandler = () => {
 		props.onClickCallback()
+	}
+
+	if(!props.isAuth) {
+		return <Redirect to={'/login'}/>
 	}
 
 	return (

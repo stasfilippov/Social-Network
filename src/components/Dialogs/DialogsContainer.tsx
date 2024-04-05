@@ -8,11 +8,13 @@ import {Dispatch} from 'redux';
 
 type MapStateToPropsType = {
 	data: InitialStateType
+	isAuth: boolean
 }
 
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 	return {
-		data: state.dialogs
+		data: state.dialogs,
+		isAuth: state.auth.isAuth
 	}
 }
 
