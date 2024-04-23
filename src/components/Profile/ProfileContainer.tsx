@@ -1,14 +1,14 @@
-import React from 'react';
-import {Profile} from './Profile';
-import {connect} from 'react-redux';
-import {AppRootState} from '../../redux/redux-store';
-import {getUserProfileData} from '../../redux/profile-reducer';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
-import {userProfileDataType} from '../../api/profileApi';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import React from 'react'
+import { connect } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { compose } from 'redux'
+import { userProfileDataType } from '../../api/profileApi'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { getUserProfileData } from '../../redux/profile-reducer'
+import { AppRootState } from '../../redux/redux-store'
+import { Profile } from './Profile'
 
-export class ProfileContainerApi extends React.Component<PropsType>{
-
+export class ProfileContainerApi extends React.Component<PropsType> {
 	componentDidMount() {
 		let userId = this.props.match.params.userId
 		if (!userId) {
@@ -17,26 +17,22 @@ export class ProfileContainerApi extends React.Component<PropsType>{
 		this.props.getUserProfileData(userId)
 	}
 
-	render () {
+	render() {
 		return <Profile profile={this.props.profile} />
 	}
 }
 
-let mapStateToProps = (state: AppRootState ): mapStateToPropsType => {
+let mapStateToProps = (state: AppRootState): mapStateToPropsType => {
 	return {
 		profile: state.profile.userProfileData,
 	}
 }
 
-let withUrlDataContainerComponent = withRouter(ProfileContainerApi)
-
-export const ProfileContainer = withAuthRedirect(connect(mapStateToProps, {getUserProfileData})(withUrlDataContainerComponent))
-
-
-
-
-
-
+export default compose<React.ComponentType>(
+	connect(mapStateToProps, { getUserProfileData }),
+	withRouter,
+	withAuthRedirect
+)(ProfileContainerApi)
 
 type mapStateToPropsType = {
 	profile: userProfileDataType
@@ -49,6 +45,3 @@ export type PathParamsType = {
 	userId: string
 }
 type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
-
-
-
