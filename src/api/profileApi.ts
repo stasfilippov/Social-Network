@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {userType} from '../redux/network-reducer';
+import {ResponseType} from './authApi';
 
 const instance = axios.create({
 	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -11,7 +12,14 @@ const instance = axios.create({
 export const profileApi = {
 	getUserProfileData (userId: string) {
 		return instance.get<userProfileDataType>(`profile/${userId}`).then(res => res.data)
+	},
+	getProfileStatus (userId: string) {
+		return instance.get<string>(`profile/status/${userId}`).then(res => res.data)
+	},
+	updataProfileStatus (status: string) {
+		return instance.put<ResponseType>(`profile/status`, {status}).then(res => res.data)
 	}
+
 }
 export type userProfileDataType = {
 	aboutMe: string;

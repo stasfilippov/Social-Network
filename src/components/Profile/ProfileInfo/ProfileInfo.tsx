@@ -2,9 +2,16 @@ import { userProfileDataType } from '../../../api/profileApi'
 import Preloader from '../../../common/proloader/Preloader'
 import classes from '../Profile.module.css'
 import ProfileStatus from './ProfileStatus'
+import React from 'react';
 
-export const ProfileInfo = (props: { profile: userProfileDataType }) => {
-	if (!props.profile) {
+type ProfileInfoProps = {
+	profile: userProfileDataType
+	status: string
+	updateStatus: (status: string) => void
+
+}
+export const ProfileInfo:React.FC<ProfileInfoProps> = ({ profile, status, updateStatus }) => {
+	if (!profile) {
 		return <Preloader />
 	}
 	return (
@@ -12,26 +19,26 @@ export const ProfileInfo = (props: { profile: userProfileDataType }) => {
 			<div className={classes.profileImagesContainer}>
 				<img
 					className={classes.profileSmallImage}
-					src={props.profile.photos?.small}
+					src={profile.photos?.small}
 					alt='profileSmallImage'
 				/>
 			</div>
 			<div className={classes.profileDescription}>
-				<h3 className={classes.profileName}>{props.profile.fullName}</h3>
-				<ProfileStatus status='Hello world' />
+				<h3 className={classes.profileName}>{profile.fullName}</h3>
+				<ProfileStatus status={status} updateStatus={updateStatus}/>
 				<p className={classes.profileAboutMe}>
-					{props.profile.aboutMe ? props.profile.aboutMe : 'Not description'}
+					{profile.aboutMe ? profile.aboutMe : 'Not description'}
 				</p>
 				<div className={classes.profileContactsContainer}>
-					{props.profile.contacts?.github}
+					{profile.contacts?.github}
 				</div>
 				<div
 					className={classes.profileStatus}
 					style={{
-						backgroundColor: props.profile.lookingForAJob ? 'green' : 'red',
+						backgroundColor: profile.lookingForAJob ? 'green' : 'red',
 					}}
 				>
-					{props.profile.lookingForAJob ? 'Open' : 'Closed'} to work
+					{profile.lookingForAJob ? 'Open' : 'Closed'} to work
 				</div>
 			</div>
 			<div>new post</div>
