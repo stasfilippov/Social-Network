@@ -1,18 +1,14 @@
-import React, {
-	ChangeEvent,
-} from 'react'
+import React, { ChangeEvent } from 'react'
 
 type ProfileStatusProps = {
 	status: string
 	updateStatus: (status: string) => void
-
 }
 
 class ProfileStatus extends React.Component<ProfileStatusProps> {
-
 	state = {
 		editMode: false,
-		status: this.props.status
+		status: this.props.status,
 	}
 
 	toggleEditMode = () => {
@@ -22,12 +18,25 @@ class ProfileStatus extends React.Component<ProfileStatusProps> {
 		this.props.updateStatus(this.state.status)
 	}
 
-	onStatusChangeHandler = (event: ChangeEvent<HTMLInputElement> ) => {
+	onStatusChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		this.setState({
-			status: event.currentTarget.value
+			status: event.currentTarget.value,
 		})
 	}
- 	render() {
+
+	componentDidUpdate(
+		prevProps: Readonly<ProfileStatusProps>,
+		prevState: Readonly<{}>,
+		snapshot?: any
+	): void {
+		if (prevProps.status !== this.props.status) {
+			this.setState({
+				status: this.props.status,
+			})
+		}
+	}
+
+	render() {
 		return (
 			<>
 				{this.state.editMode ? (
@@ -41,7 +50,9 @@ class ProfileStatus extends React.Component<ProfileStatusProps> {
 					</div>
 				) : (
 					<div>
-						<span onDoubleClick={this.toggleEditMode}>{this.props.status || 'No status'}</span>
+						<span onDoubleClick={this.toggleEditMode}>
+							{this.props.status || 'No status'}
+						</span>
 					</div>
 				)}
 			</>
