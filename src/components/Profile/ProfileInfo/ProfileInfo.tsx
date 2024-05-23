@@ -1,16 +1,20 @@
+import React from 'react'
 import { userProfileDataType } from '../../../api/profileApi'
 import Preloader from '../../../common/proloader/Preloader'
+import imagesProfile from '../../../images/ava1.png'
 import classes from '../Profile.module.css'
 import ProfileStatus from './ProfileStatus'
-import React from 'react';
 
 type ProfileInfoProps = {
 	profile: userProfileDataType
 	status: string
 	updateStatus: (status: string) => void
-
 }
-export const ProfileInfo:React.FC<ProfileInfoProps> = ({ profile, status, updateStatus }) => {
+export const ProfileInfo: React.FC<ProfileInfoProps> = ({
+	profile,
+	status,
+	updateStatus,
+}) => {
 	if (!profile) {
 		return <Preloader />
 	}
@@ -19,13 +23,13 @@ export const ProfileInfo:React.FC<ProfileInfoProps> = ({ profile, status, update
 			<div className={classes.profileImagesContainer}>
 				<img
 					className={classes.profileSmallImage}
-					src={profile.photos?.small}
-					alt='profileSmallImage'
+					src={profile.photos?.small ? profile.photos.small : imagesProfile}
+					alt='UsePhoto'
 				/>
 			</div>
 			<div className={classes.profileDescription}>
 				<h3 className={classes.profileName}>{profile.fullName}</h3>
-				<ProfileStatus status={status} updateStatus={updateStatus}/>
+				<ProfileStatus status={status} updateStatus={updateStatus} />
 				<p className={classes.profileAboutMe}>
 					{profile.aboutMe ? profile.aboutMe : 'Not description'}
 				</p>
